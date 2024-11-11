@@ -1,4 +1,4 @@
-package teamGps.loginPage;
+package loginPage;
 
 import java.time.Duration;
 
