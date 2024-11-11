@@ -12,3 +12,6 @@ test-output/
 *.log
 *.bak
 *.tmp
+
+# IntelliJ-specific files
+.idea/
