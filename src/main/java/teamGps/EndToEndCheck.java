@@ -29,9 +29,10 @@ public class EndToEndCheck {
 		homePage.selectMeeting();
 		homePage.selectOneonOneMeeting();
 
-		// -- Interact with the One-on-One meeting page
+		// -- Interact with the One-on-One meeting page which opens after clicking the 1:1 meeting from the left menu
 		OneOnOneMeetingsPage oneOnOneMeetingsPage = new OneOnOneMeetingsPage(driver);
-		oneOnOneMeetingsPage.clickCreateMeeting();
+		oneOnOneMeetingsPage.clickStartMeeting(1);
+		//oneOnOneMeetingsPage.clickCreateMeeting();
 
 
 		// -- Interact with the Create Event page of the new One-on-One meeting being created

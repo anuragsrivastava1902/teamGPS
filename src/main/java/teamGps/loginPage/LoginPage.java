@@ -17,6 +17,7 @@ public class LoginPage {
 	By nextBtn = By.xpath("//button[normalize-space()='Next']");
 	By passField = By.xpath("//input[@placeholder='Password']");
 	By loginBtn = By.xpath("//button[normalize-space()='Log In']");
+	By forgotPasswordLink = By.xpath("//a[normalize-space()='Forgot Password?']");
 	
 	
 	//Actions on 1:1 meetings page
@@ -38,6 +39,10 @@ public class LoginPage {
 	
 	public void clickLogin() {
 		driver.findElement(loginBtn).click();
+	}
+	
+	public void clickForgotPassword() {
+		driver.findElement(forgotPasswordLink).click();
 	}
 	
 

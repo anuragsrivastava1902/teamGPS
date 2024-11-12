@@ -8,6 +8,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import teamGps.loginPage.LoginPage;
+
 public class LoginTest {
 
 
@@ -28,6 +30,12 @@ public class LoginTest {
 			login.clickNext();
 			login.enterPassword("John@123");
 			login.clickLogin();
+		}
+		
+		@Test
+		void forgotPassTest() {
+			LoginPage login = new LoginPage(driver);
+			login.clickForgotPassword();
 		}
 		
 		@AfterClass

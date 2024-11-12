@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -39,7 +40,8 @@ public class OneOnOneMeetingsPage {
 	
 	By hamburgerIcon = By.xpath("(//img[@alt='edit-icon'])[1]");
 	By actionsModalWindow = By.xpath("//div[@class='dropdown-menu ng-star-inserted show']");
-	By startOptionInModalWindow = By.xpath("//tr[@class='ng2-smart-row ng-star-inserted selected']//button[1]//div[1]");
+	//By actionsModalWindow = By.xpath("//span[normalize-space()='Start']");
+	By startOptionInModalWindow = By.xpath("//span[normalize-space()='Start']");
 	By editMeetingButton = By.xpath("//span[contains(text(),'Edit Meeting')]");
 	By editThisMeetingButton = By.xpath("//button[normalize-space()='Edit This Meeting']");
 	int meetingRowNumber;
@@ -133,9 +135,12 @@ public class OneOnOneMeetingsPage {
 		driver.findElement(editThisMeetingButton).click();
 	}
 	
-	public void clickStartMeeting() {
-		
+	public void clickStartMeeting(int n) throws InterruptedException {
+		//Thread.sleep(2000);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='edit-icon'])["+n+"]"))).click();
+		WebElement modal = wait.until(ExpectedConditions.presenceOfElementLocated(actionsModalWindow));  // waits for the presence of the element
+		wait.until(ExpectedConditions.elementToBeClickable(startOptionInModalWindow)).click();
 	}
-	
 	
 }
