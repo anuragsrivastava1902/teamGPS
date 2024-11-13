@@ -11,9 +11,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class OneOnOneMeetingsPage {
 	
 	WebDriver driver;
+	WebDriverWait wait;
 	
 	public OneOnOneMeetingsPage(WebDriver driver){
 		this.driver = driver;
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
 	
 	//locators
@@ -63,7 +65,6 @@ public class OneOnOneMeetingsPage {
 	}
 	
 	public void clickAllMeeting() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(allMeetingsTab)));
 		driver.findElement(allMeetingsTab).click();
 	}
@@ -73,25 +74,21 @@ public class OneOnOneMeetingsPage {
 	}
 	 
 	public void clickMeetingCreatorDropdown() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(meetingCreatorDropdown)));
 		driver.findElement(meetingCreatorDropdown).click();
 	}
 	
 	public void clickMeetingRecipientDropdown() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(meetingRecipientDropdown)));
 		driver.findElement(meetingRecipientDropdown).click();
 	}
 	
 	public void clickMeetingStatusDropdown() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(meetingStatusDropdown)));
 		driver.findElement(meetingStatusDropdown).click();
 	}
 	
 	public void clickMeetingFrequencyDropdown() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(meetingFrequencyDropdown)));
 		driver.findElement(meetingFrequencyDropdown).click();
 	}
@@ -102,7 +99,6 @@ public class OneOnOneMeetingsPage {
 	public void clickJoinMeetingBtn(int rowNumber) {
 		meetingRowNumber = rowNumber;
 		By joinMeetingBtn = By.xpath("//tbody/tr["+meetingRowNumber+"]/td[7]/ng2-smart-table-cell[1]/table-cell-view-mode[1]/div[1]/custom-view-component[1]/app-button-action[1]/div[1]/button[1]");
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(joinMeetingBtn)));
 		driver.findElement(joinMeetingBtn).click();
 	}
@@ -110,7 +106,6 @@ public class OneOnOneMeetingsPage {
 	public void clickGoToMeetingBtn(int rowNumber) {
 		meetingRowNumber = rowNumber;
 		By goToMeetingBtn = By.xpath("//tbody/tr["+meetingRowNumber+"]/td[7]/ng2-smart-table-cell[1]/table-cell-view-mode[1]/div[1]/custom-view-component[1]/app-button-action[1]/div[1]/button[1]");
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(goToMeetingBtn)));
 		driver.findElement(goToMeetingBtn).click();
 	}
@@ -118,14 +113,12 @@ public class OneOnOneMeetingsPage {
 	public void clickActionBtn(int row) {
 		rowNumber = row;
 		By meetingActionBtn = By.xpath("//tbody/tr["+rowNumber+"]/td[1]/ng2-smart-table-cell[1]/table-cell-view-mode[1]/div[1]/custom-view-component[1]/app-smart-table-actions[1]/div[1]/a[1]/img[1]");
-		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(meetingActionBtn)));
 		driver.findElement(meetingActionBtn);	
 	}
 	
 	public void clickEditMeeting(int row) throws InterruptedException {
 		rowNumber = row;
-		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(hamburgerIcon)));
 		driver.findElement(hamburgerIcon).click();
 		Thread.sleep(2000);
@@ -136,11 +129,15 @@ public class OneOnOneMeetingsPage {
 	}
 	
 	public void clickStartMeeting(int n) throws InterruptedException {
-		//Thread.sleep(2000);
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='edit-icon'])["+n+"]"))).click();
-		WebElement modal = wait.until(ExpectedConditions.presenceOfElementLocated(actionsModalWindow));  // waits for the presence of the element
-		wait.until(ExpectedConditions.elementToBeClickable(startOptionInModalWindow)).click();
+	    // Wait for the edit icon to be visible and click
+	    WebElement editIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='edit-icon'])[" + n + "]")));
+	    editIcon.click();
+	    // Wait for the modal to be visible and interactable
+	    WebElement modal = wait.until(ExpectedConditions.presenceOfElementLocated(actionsModalWindow));
+	    // Wait for the start option to be clickable
+	    WebElement startOption = wait.until(ExpectedConditions.elementToBeClickable(startOptionInModalWindow));
+	    startOption.click();
 	}
+
 	
 }

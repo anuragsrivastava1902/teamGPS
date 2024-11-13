@@ -17,28 +17,29 @@ public class EndToEndCheck {
 
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-		driver.get("https://itbd-qa-frontend.team-gps.net/login");
+		driver.get("https://itbd-dev-frontend.team-gps.net/login");
 		driver.manage().window().maximize();
 
 		// -- Interact with the login page
 		LoginPage loginPage = new LoginPage(driver);
-		loginPage.enterUsername("ralph.sharma@yopmail.com").clickNext().enterPassword("John@123").clickLogin();
+		loginPage.enterUsername("lucas.sarzo@yopmail.com").clickNextButton().enterPassword("John@123").clickLoginButton();
 
 		// -- Interact with the Main page which comes after the login
 		HomePage homePage = new HomePage(driver);
-		homePage.selectMeeting();
-		homePage.selectOneonOneMeeting();
+		homePage.clickOnMeetings();
+		homePage.clickOnOneonOneMeetings();
 
 		// -- Interact with the One-on-One meeting page which opens after clicking the 1:1 meeting from the left menu
 		OneOnOneMeetingsPage oneOnOneMeetingsPage = new OneOnOneMeetingsPage(driver);
-		oneOnOneMeetingsPage.clickStartMeeting(1);
-		//oneOnOneMeetingsPage.clickCreateMeeting();
+		//oneOnOneMeetingsPage.clickStartMeeting(1);
+		oneOnOneMeetingsPage.clickCreateMeeting();
 
 
 		// -- Interact with the Create Event page of the new One-on-One meeting being created
 		CreateEventPage createEventPage = new CreateEventPage(driver);
-		createEventPage.addRecipient("phil");
+		createEventPage.addRecipient("Sergio");
 		createEventPage.setEventTitle("meeting with ralph and phil 08 nov");
+		//createEventPage.clickOnRecurringMeeting();
 		createEventPage.clickOnCreateButton();
 
 		//-- Interact with the select Template page which comes in second step while creating the meeting
@@ -57,8 +58,10 @@ public class EndToEndCheck {
 //				agendaPage.clickOnEditAgendaItem(2);
 
 		System.out.println("anurag");
+		
+		Thread.sleep(4000);
 
-		// driver.quit();
+		driver.quit();
 	}
 
 }

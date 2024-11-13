@@ -27,9 +27,9 @@ public class LoginTest {
 		void loginTest() {
 			LoginPage login = new LoginPage(driver);
 			login.enterUsername("ralph.sharma@yopmail.com");
-			login.clickNext();
+			login.clickNextButton();
 			login.enterPassword("John@123");
-			login.clickLogin();
+			login.clickLoginButton();
 		}
 		
 		@Test

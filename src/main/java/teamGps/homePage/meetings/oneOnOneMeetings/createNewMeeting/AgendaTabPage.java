@@ -10,9 +10,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class AgendaTabPage {
 	
 WebDriver driver;
+WebDriverWait wait;
 	
 	public AgendaTabPage(WebDriver driver){
 		this.driver = driver;
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
 	
 	//locators
@@ -28,7 +30,6 @@ WebDriver driver;
 	
 	public void clickOnEditAgendaItem(int num) {
 		agendaNumber = num;
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(editAgendaItem));
 		driver.findElement(editAgendaItem).click();
 		driver.findElement(editAgendaItem).clear();

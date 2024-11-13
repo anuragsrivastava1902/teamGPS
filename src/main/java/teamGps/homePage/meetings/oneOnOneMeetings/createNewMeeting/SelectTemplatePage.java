@@ -10,32 +10,30 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class SelectTemplatePage {
 
 	WebDriver driver;
+	WebDriverWait wait;
 	
 	public SelectTemplatePage(WebDriver driver){
 		this.driver = driver;
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
 	
-	By fromScratchBtn = By.xpath("//img[@src='/assets/itbd-img/add-icon.svg']");
-	By defaultTemplatebtn = By.xpath("//h5[normalize-space()='Default Template']");
+	By fromScratchButton = By.xpath("//img[@src='/assets/itbd-img/add-icon.svg']");
+	By defaultTemplateButton = By.xpath("//h5[normalize-space()='Default Template']");
 	
-	By previousBtn = By.xpath("//button[normalize-space()='Previous']");
-	By saveAndNextBtn = By.xpath("//button[normalize-space()='Save & Next']");
+	By previousButton = By.xpath("//button[normalize-space()='Previous']");
+	By saveAndNextButton = By.xpath("//button[normalize-space()='Save & Next']");
 	
-	By createEventBtn = By.xpath("(//div[@class='meet-label labelcomplete'])[1]");
+	By createEventButton = By.xpath("(//div[@class='meet-label labelcomplete'])[1]");
 	
 	
 	
-	//action methods
+	//Action methods for interacting with select template page which comes in second step while creating an One-on-One meeting
 	
 	public void clickDefaultTemplate() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(defaultTemplatebtn)));
-		driver.findElement(defaultTemplatebtn).click();
+		wait.until(ExpectedConditions.elementToBeClickable(defaultTemplateButton)).click();
 	}
 	
 	public void clickSaveAndNextButton() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(saveAndNextBtn)));
-		driver.findElement(saveAndNextBtn).click();
+		wait.until(ExpectedConditions.elementToBeClickable(saveAndNextButton)).click();
 	}
 }

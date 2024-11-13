@@ -21,15 +21,15 @@ public class EditMeetingCheck {
 
 	LoginPage login = new LoginPage(driver);
 	login.enterUsername("ralph.sharma@yopmail.com");
-	login.clickNext();
+	login.clickNextButton();
 	login.enterPassword("John@123");
-	login.clickLogin();
+	login.clickLoginButton();
 	
 	//Thread.sleep(10000);
 	
 	HomePage mp = new HomePage(driver);
-	mp.selectMeeting();
-	mp.selectOneonOneMeeting();
+	mp.clickOnMeetings();
+	mp.clickOnOneonOneMeetings();
 	
 	OneOnOneMeetingsPage one = new OneOnOneMeetingsPage(driver);
 	Thread.sleep(6000);

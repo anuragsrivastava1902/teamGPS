@@ -12,9 +12,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class EditMeetingPage {
 
 	WebDriver driver;
+	WebDriverWait wait;
 
 	public EditMeetingPage(WebDriver driver) {
 		this.driver = driver;
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
 
 	// Locators
@@ -39,22 +41,18 @@ public class EditMeetingPage {
 	By addToCalendarButton = By.xpath("//button[normalize-space()='Add to Calendar']");
 
 	// Action methods
-	WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
+	
 	public void clickAgendaTab() {
-		// WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(agendaTab));
 		driver.findElement(agendaTab).click();
 	}
 
 	public void clickMeetingSurveyTab() {
-		// WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.elementToBeClickable(meetingSurveyTab));
 		driver.findElement(meetingSurveyTab).click();
 	}
 
 	public void clickSaveAndSendUpdateButton() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		try {
 			WebElement saveButton = wait.until(ExpectedConditions.visibilityOfElementLocated(saveAndSendUpdateButton));
 			((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveButton);
@@ -66,9 +64,7 @@ public class EditMeetingPage {
 	}
 
 	public void clickAddToCalendarButton() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		WebElement modal = wait
-				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-body']")));
+		WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-body']")));
 		// Locate the "Add to Calendar" button within the modal
 		WebElement addButton = modal.findElement(addToCalendarButton);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -76,10 +72,8 @@ public class EditMeetingPage {
 	}
 
 	public void clickSkipCalendarButton() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		WebElement modal = wait
-				.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-body']")));
-		// Locate the "Add to Calendar" button within the modal
+		WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-body']")));
+		// Locate the "skip" button within the modal
 		WebElement skipButton = modal.findElement(addToCalendarSkipbutton);
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].click();", skipButton);
