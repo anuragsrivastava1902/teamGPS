@@ -110,30 +110,22 @@ public class OneOnOneMeetingsPage {
 		driver.findElement(goToMeetingBtn).click();
 	}
 	
-	public void clickActionBtn(int row) {
-		rowNumber = row;
-		By meetingActionBtn = By.xpath("//tbody/tr["+rowNumber+"]/td[1]/ng2-smart-table-cell[1]/table-cell-view-mode[1]/div[1]/custom-view-component[1]/app-smart-table-actions[1]/div[1]/a[1]/img[1]");
-		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(meetingActionBtn)));
-		driver.findElement(meetingActionBtn);	
+	public void clickHamburgerIcon(int row) {	
+		WebElement editIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='edit-icon'])[" + row + "]")));
+	    editIcon.click();
 	}
 	
 	public void clickEditMeeting(int row) throws InterruptedException {
-		rowNumber = row;
-		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(hamburgerIcon)));
-		driver.findElement(hamburgerIcon).click();
-		Thread.sleep(2000);
-		wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(editMeetingButton))).click();;
-		//driver.findElement(editMeetingBtn).click();
-		Thread.sleep(2000);
-		driver.findElement(editThisMeetingButton).click();
+		clickHamburgerIcon(row);
+		driver.switchTo().activeElement();
+		wait.until(ExpectedConditions.elementToBeClickable(editMeetingButton)).click();
+		driver.switchTo().activeElement();
+		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//app-smart-table-actions/div/div/button[2]/div/div/button[1]"))).click();
 	}
 	
-	public void clickStartMeeting(int n) throws InterruptedException {
-	    // Wait for the edit icon to be visible and click
-	    WebElement editIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='edit-icon'])[" + n + "]")));
-	    editIcon.click();
-	    // Wait for the modal to be visible and interactable
-	    WebElement modal = wait.until(ExpectedConditions.presenceOfElementLocated(actionsModalWindow));
+	public void clickStartMeeting(int row) throws InterruptedException {
+		clickHamburgerIcon(row);
+	    WebElement modal = driver.switchTo().activeElement();
 	    // Wait for the start option to be clickable
 	    WebElement startOption = wait.until(ExpectedConditions.elementToBeClickable(startOptionInModalWindow));
 	    startOption.click();

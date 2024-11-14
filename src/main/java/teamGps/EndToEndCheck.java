@@ -8,6 +8,7 @@ import teamGps.homePage.HomePage;
 import teamGps.homePage.meetings.oneOnOneMeetings.OneOnOneMeetingsPage;
 import teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting.CreateEventPage;
 import teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting.EditMeetingPage;
+import teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting.OngoingMeetingPage;
 import teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting.SelectTemplatePage;
 import teamGps.loginPage.LoginPage;
 
@@ -32,7 +33,11 @@ public class EndToEndCheck {
 		// -- Interact with the One-on-One meeting page which opens after clicking the 1:1 meeting from the left menu
 		OneOnOneMeetingsPage oneOnOneMeetingsPage = new OneOnOneMeetingsPage(driver);
 		//oneOnOneMeetingsPage.clickStartMeeting(1);
-		oneOnOneMeetingsPage.clickCreateMeeting();
+		oneOnOneMeetingsPage.clickEditMeeting(1); // why is it not working with the meeting in the second row or third row
+		//oneOnOneMeetingsPage.clickCreateMeeting();
+		
+		OngoingMeetingPage ongoingMeetingPage = new OngoingMeetingPage(driver);
+		ongoingMeetingPage.clickOnCompleteMeetingbutton();
 
 
 		// -- Interact with the Create Event page of the new One-on-One meeting being created
