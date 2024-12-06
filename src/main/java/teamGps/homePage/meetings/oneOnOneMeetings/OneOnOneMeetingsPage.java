@@ -111,7 +111,7 @@ public class OneOnOneMeetingsPage {
 	}
 	
 	public void clickHamburgerIcon(int row) {	
-		WebElement editIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//img[@alt='edit-icon'])[" + row + "]")));
+		WebElement editIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//img[@alt='edit-icon'])[1]")));
 	    editIcon.click();
 	}
 	

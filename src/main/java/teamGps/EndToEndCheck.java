@@ -18,7 +18,7 @@ public class EndToEndCheck {
 
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-		driver.get("https://itbd-dev-frontend.team-gps.net/login");
+		driver.get("https://itbd-stage-frontend.team-gps.net/login");
 		driver.manage().window().maximize();
 
 		// -- Interact with the login page
@@ -28,7 +28,7 @@ public class EndToEndCheck {
 		// -- Interact with the Main page which comes after the login
 		HomePage homePage = new HomePage(driver);
 		homePage.clickOnMeetings();
-		homePage.clickOnOneonOneMeetings();
+		homePage.clickOnOneOnOneMeetings();
 
 		// -- Interact with the One-on-One meeting page which opens after clicking the 1:1 meeting from the left menu
 		OneOnOneMeetingsPage oneOnOneMeetingsPage = new OneOnOneMeetingsPage(driver);

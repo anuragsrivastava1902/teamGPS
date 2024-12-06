@@ -29,7 +29,7 @@ public class EditMeetingCheck {
 	
 	HomePage mp = new HomePage(driver);
 	mp.clickOnMeetings();
-	mp.clickOnOneonOneMeetings();
+	mp.clickOnOneOnOneMeetings();
 	
 	OneOnOneMeetingsPage one = new OneOnOneMeetingsPage(driver);
 	Thread.sleep(6000);

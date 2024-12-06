@@ -33,7 +33,7 @@ public class HomePage {
 	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", meetingElement);
 	}
 	
-	public void clickOnOneonOneMeetings() {
+	public void clickOnOneOnOneMeetings() {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(oneOnOneMeetingModule));
 		WebElement oneOnOneMeetingElement = driver.findElement(oneOnOneMeetingModule);
