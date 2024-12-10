@@ -1,4 +1,4 @@
-package teamGps.homePage.meetings.oneOnOneMeetings;
+package pages.homePage.meetings.oneOnOneMeetings;
 
 import java.time.Duration;
 
@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeClass;
 //import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import teamGps.loginPage.LoginPage;
+import pages.loginPage.LoginPage;
 
 public class OneOnOneMeetingsTest {
 

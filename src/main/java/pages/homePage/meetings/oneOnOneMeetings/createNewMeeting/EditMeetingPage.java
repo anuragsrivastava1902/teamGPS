@@ -1,4 +1,4 @@
-package teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting;
+package pages.homePage.meetings.oneOnOneMeetings.createNewMeeting;
 
 import java.time.Duration;
 import org.openqa.selenium.By;
@@ -26,15 +26,14 @@ public class EditMeetingPage {
 	By meetingTitle = By.xpath("//input[@class='ng-pristine ng-valid ng-touched']");
 
 	By agendaTab = By.xpath("//a[contains('Agenda')]");
-	By meetingSurveyTab = By.xpath("//a[contains('Meeting Survey')]");
+	By meetingSurveyTab = By.xpath("(//a[normalize-space()='Meeting Survey'])[1]");
 	By tasksTab = By.xpath("//a[@id='ngb-nav-6']");
 
-	By createTaskTab = By.xpath("//span[normalize-space()='Create Task']");
+	By createTaskButton = By.xpath("//span[normalize-space()='Create Task']");
 
 	By repeatPatternBtn = By.xpath("//div[@class='timeDiv pointer']");
 
-	By editAgendaItems = By.xpath("//div[3]//div[1]//div[5]//span[1]//img[1]");
-	By deleteAgendaItems = By.xpath("//div[3]//div[1]//div[5]//span[2]//img[1]");
+
 
 	By saveAndSendUpdateButton = By.xpath("//button[normalize-space()='Save & Send Update']");
 	By addToCalendarSkipbutton = By.xpath("//button[normalize-space()='Skip']");
@@ -48,8 +47,12 @@ public class EditMeetingPage {
 	}
 
 	public void clickMeetingSurveyTab() {
-		wait.until(ExpectedConditions.elementToBeClickable(meetingSurveyTab));
-		driver.findElement(meetingSurveyTab).click();
+		wait.until(ExpectedConditions.elementToBeClickable(meetingSurveyTab)).click();
+	}
+
+	public void clickOnCreateTaskButton(){
+		WebElement button = wait.until(ExpectedConditions.elementToBeClickable(createTaskButton));
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", button);
 	}
 
 	public void clickSaveAndSendUpdateButton() {

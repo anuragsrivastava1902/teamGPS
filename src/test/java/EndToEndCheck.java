@@ -1,20 +1,20 @@
-package teamGps;
-
 import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import teamGps.homePage.HomePage;
-import teamGps.homePage.meetings.oneOnOneMeetings.OneOnOneMeetingsPage;
-import teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting.CreateEventPage;
-import teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting.EditMeetingPage;
-import teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting.OngoingMeetingPage;
-import teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting.SelectTemplatePage;
-import teamGps.loginPage.LoginPage;
+import org.testng.annotations.Test;
+import pages.homePage.HomePage;
+import pages.homePage.meetings.oneOnOneMeetings.OneOnOneMeetingsPage;
+import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.*;
+import pages.loginPage.LoginPage;
 
-public class EndToEndCheck {
+public class EndToEndCheck extends BaseTest {
 
-	public static void main(String[] args) throws InterruptedException {
+
+
+	@Test
+	public static void test() throws InterruptedException {
 
 		WebDriver driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
@@ -23,7 +23,10 @@ public class EndToEndCheck {
 
 		// -- Interact with the login page
 		LoginPage loginPage = new LoginPage(driver);
-		loginPage.enterUsername("lucas.sarzo@yopmail.com").clickNextButton().enterPassword("John@123").clickLoginButton();
+		loginPage.enterUsername("lucas.sarzo@yopmail.com");
+		loginPage.clickNextButton();
+		loginPage.enterPassword("John@123");
+		loginPage.clickLoginButton();
 
 		// -- Interact with the Main page which comes after the login
 		HomePage homePage = new HomePage(driver);
@@ -33,16 +36,16 @@ public class EndToEndCheck {
 		// -- Interact with the One-on-One meeting page which opens after clicking the 1:1 meeting from the left menu
 		OneOnOneMeetingsPage oneOnOneMeetingsPage = new OneOnOneMeetingsPage(driver);
 		//oneOnOneMeetingsPage.clickStartMeeting(1);
-		oneOnOneMeetingsPage.clickEditMeeting(1); // why is it not working with the meeting in the second row or third row
-		//oneOnOneMeetingsPage.clickCreateMeeting();
+		//oneOnOneMeetingsPage.clickEditMeeting(1); // why is it not working with the meeting in the second row or third row
+		oneOnOneMeetingsPage.clickCreateMeeting();
 		
-		OngoingMeetingPage ongoingMeetingPage = new OngoingMeetingPage(driver);
-		ongoingMeetingPage.clickOnCompleteMeetingbutton();
+		//OngoingMeetingPage ongoingMeetingPage = new OngoingMeetingPage(driver);
+		//ongoingMeetingPage.clickOnCompleteMeetingbutton();
 
 
 		// -- Interact with the Create Event page of the new One-on-One meeting being created
 		CreateEventPage createEventPage = new CreateEventPage(driver);
-		createEventPage.addRecipient("Sergio");
+		createEventPage.addRecipient("Tanishk");
 		createEventPage.setEventTitle("meeting with ralph and phil 08 nov");
 		//createEventPage.clickOnRecurringMeeting();
 		createEventPage.clickOnCreateButton();
@@ -54,9 +57,18 @@ public class EndToEndCheck {
 
 		//-- Interact with the Edit Meeting page which comes in third step while creating the meeting
 		EditMeetingPage editMeetingPage = new EditMeetingPage(driver);
-		editMeetingPage.clickSaveAndSendUpdateButton();
+		editMeetingPage.clickMeetingSurveyTab();
+		MeetingSurveyTabPage meetingSurveyTabPage = new MeetingSurveyTabPage(driver);
+		//meetingSurveyTabPage.clickOnMeetingTemplatePreview();
+		meetingSurveyTabPage.clickOnUseTemplate();
+		//editMeetingPage.clickOnCreateTaskButton();
+		//editMeetingPage.clickSaveAndSendUpdateButton();
 		// editMeetingPage.clickAddToCalendarButton();
-		editMeetingPage.clickSkipCalendarButton();
+		//editMeetingPage.clickSkipCalendarButton();
+
+		//CreateTasksFlyoutPage createTasksFlyoutPage = new CreateTasksFlyoutPage(driver);
+		//createTasksFlyoutPage.enterTaskName("new task by me");
+		//createTasksFlyoutPage.enterTaskAssignee("Tanishk Patidar");
 		
 
 //				AgendaTabPage agendaPage = new AgendaTabPage(driver);
@@ -64,7 +76,7 @@ public class EndToEndCheck {
 
 		System.out.println("anurag");
 		
-		Thread.sleep(4000);
+		Thread.sleep(10000);
 
 		driver.quit();
 	}

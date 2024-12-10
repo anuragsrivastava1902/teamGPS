@@ -1,10 +1,9 @@
-package teamGps.loginPage;
+package pages.loginPage;
 
 import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 //import org.openqa.selenium.chrome.ChromeDriver;
@@ -30,20 +29,17 @@ public class LoginPage {
 	//Actions on 1:1 meetings page
 	
 	
-	public LoginPage enterUsername(String email) {
+	public void enterUsername(String email) {
 		//wait.until(ExpectedConditions.visibilityOfElementLocated(emailInputField)).sendKeys(email);
 		driver.findElement(emailInputField).sendKeys(email);
-		return this;
 	}
 	
-	public LoginPage clickNextButton() {
+	public void clickNextButton() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(nextButton)).click();
-		return this;
 	}
 	
-	public LoginPage enterPassword(String password) {
+	public void enterPassword(String password) {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInputField)).sendKeys(password);
-		return this;
 	}
 	
 	public void clickLoginButton() {

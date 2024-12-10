@@ -1,4 +1,4 @@
-package teamGps.homePage.meetings.oneOnOneMeetings.editMeeting;
+package pages.homePage.meetings.oneOnOneMeetings.editMeeting;
 
 import org.openqa.selenium.By;
 

@@ -1,4 +1,4 @@
-package teamGps.homePage;
+package pages.homePage;
 
 import java.time.Duration;
 

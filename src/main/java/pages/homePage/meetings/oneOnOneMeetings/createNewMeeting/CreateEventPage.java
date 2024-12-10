@@ -1,4 +1,4 @@
-package teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting;
+package pages.homePage.meetings.oneOnOneMeetings.createNewMeeting;
 
 import java.time.Duration;
 
@@ -22,7 +22,7 @@ public class CreateEventPage {
 	
 	
 	//Locators -
-	By addRecipientDropdown = By.xpath("/html[1]/body[1]/app-root[1]/div[1]/div[1]/div[1]/div[1]/div[1]/app-create-meet[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/form[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/ng-select[1]/div[1]/div[1]");
+	By addRecipientDropdown = By.xpath("//div[@class='ng-select-container']//div[@class='ng-value-container']");
 	By eventTitleInput = By.xpath("//input[@placeholder='Enter Title']");
 	
 	//--Start time section
@@ -47,10 +47,12 @@ public class CreateEventPage {
 	//?? there is one issue here, the dropdown is not automatically getting clicked..
 	//..and we need it to click manually for option to be selected
 	public void addRecipient(String option){
-		WebElement drpdown = wait.until(ExpectedConditions.visibilityOfElementLocated(addRecipientDropdown));
-	    ((JavascriptExecutor)driver).executeScript("arguments[0].click();", drpdown);
+		WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(addRecipientDropdown));
+	    //((JavascriptExecutor)driver).executeScript("arguments[0].click();", dropdown);
+		dropdown.click();
 	    //click on the name of user passed
-	    wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//span[contains(text(),'" + option + "')])"))).click();
+		WebElement optionElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'" + option + "')]")));
+		optionElement.click();
 	}
 	
 	public void setEventTitle(String title) {	

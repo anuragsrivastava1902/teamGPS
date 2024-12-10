@@ -1,13 +1,13 @@
-package teamGps;
+package pages;
 
 import java.time.Duration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import teamGps.homePage.HomePage;
-import teamGps.homePage.meetings.oneOnOneMeetings.OneOnOneMeetingsPage;
-import teamGps.loginPage.LoginPage;
+import pages.homePage.HomePage;
+import pages.homePage.meetings.oneOnOneMeetings.OneOnOneMeetingsPage;
+import pages.loginPage.LoginPage;
 
 public class EditMeetingCheck {
 
@@ -16,7 +16,7 @@ public class EditMeetingCheck {
 	WebDriver driver = new ChromeDriver();
 	
 	driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-	driver.get("https://itbd-qa-frontend.team-gps.net/login");
+	driver.get("https://itbd-stage-frontend.team-gps.net/login");
 	driver.manage().window().maximize();
 
 	LoginPage login = new LoginPage(driver);

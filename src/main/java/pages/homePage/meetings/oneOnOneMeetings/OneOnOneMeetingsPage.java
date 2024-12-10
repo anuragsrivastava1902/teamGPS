@@ -1,8 +1,9 @@
-package teamGps.homePage.meetings.oneOnOneMeetings;
+package pages.homePage.meetings.oneOnOneMeetings;
 
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,7 +16,7 @@ public class OneOnOneMeetingsPage {
 	
 	public OneOnOneMeetingsPage(WebDriver driver){
 		this.driver = driver;
-		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 	}
 	
 	//locators
@@ -40,11 +41,11 @@ public class OneOnOneMeetingsPage {
 	By firstPageButton = By.xpath("//li[@class='pagination-first page-item disabled ng-star-inserted']");
 	By lastPageButton = By.xpath("//li[@class='pagination-last page-item disabled ng-star-inserted']");
 	
-	By hamburgerIcon = By.xpath("(//img[@alt='edit-icon'])[1]");
+	By hamburgerIcon = By.xpath("//tbody/tr[1]/td[1]/ng2-smart-table-cell[1]/table-cell-view-mode[1]/div[1]/custom-view-component[1]/app-smart-table-actions[1]/div[1]/a[1]/img[1]");
 	By actionsModalWindow = By.xpath("//div[@class='dropdown-menu ng-star-inserted show']");
 	//By actionsModalWindow = By.xpath("//span[normalize-space()='Start']");
 	By startOptionInModalWindow = By.xpath("//span[normalize-space()='Start']");
-	By editMeetingButton = By.xpath("//span[contains(text(),'Edit Meeting')]");
+	By editMeetingButton = By.xpath("/html/body/app-root/div/div/div/div/div/app-meetings/div/div/div[2]/div/app-meeting-list/div[1]/div/div/ng2-smart-table/table/tbody/tr[1]/td[1]/ng2-smart-table-cell/table-cell-view-mode/div/custom-view-component/app-smart-table-actions/div/div/button[2]");
 	By editThisMeetingButton = By.xpath("//button[normalize-space()='Edit This Meeting']");
 	int meetingRowNumber;
 	
@@ -94,7 +95,7 @@ public class OneOnOneMeetingsPage {
 	}
 		
 	
-	//How can I put these below locators outside the method?? because it uses dynamic value.
+	//How can I put these below locators outside the method?? because they use dynamic value to interact with the page.
 	
 	public void clickJoinMeetingBtn(int rowNumber) {
 		meetingRowNumber = rowNumber;
@@ -111,14 +112,16 @@ public class OneOnOneMeetingsPage {
 	}
 	
 	public void clickHamburgerIcon(int row) {	
-		WebElement editIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//img[@alt='edit-icon'])[1]")));
-	    editIcon.click();
+		WebElement editIcon = wait.until(ExpectedConditions.visibilityOfElementLocated(hamburgerIcon));
+		//((JavascriptExecutor) driver).executeScript("arguments[0].click();", editIcon);
+		editIcon.click();
 	}
 	
 	public void clickEditMeeting(int row) throws InterruptedException {
+		//driver.switchTo().activeElement();
 		clickHamburgerIcon(row);
 		driver.switchTo().activeElement();
-		wait.until(ExpectedConditions.elementToBeClickable(editMeetingButton)).click();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(editMeetingButton)).click();
 		driver.switchTo().activeElement();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//app-smart-table-actions/div/div/button[2]/div/div/button[1]"))).click();
 	}

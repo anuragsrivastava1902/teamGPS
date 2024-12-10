@@ -1,4 +1,4 @@
-package teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting;
+package pages.homePage.meetings.oneOnOneMeetings.createNewMeeting;
 
 import java.time.Duration;
 
@@ -19,10 +19,10 @@ WebDriverWait wait;
 	
 	//locators
 	private int agendaNumber;
-	By editAgendaItem = By.xpath("/html[1]/body[1]/app-root[1]/div[1]/div[1]/div[1]/div[1]/div[1]/app-add-agenda[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[2]/div["+agendaNumber+"]/div[1]/div[4]/span[1]");
+	By editAgendaItem = By.xpath("//div[3]//div[1]//div[5]//span[1]//img[1]");
+	By deleteAgendaItems = By.xpath("//div[3]//div[1]//div[5]//span[2]//img[1]");
 	By addNotesToAgendaItem = By.xpath("/html[1]/body[1]/app-root[1]/div[1]/div[1]/div[1]/div[1]/div[1]/app-add-agenda[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[2]/div["+agendaNumber+"]/div[1]/div[5]/span[1]/img[1]");
-	By deleteAgendaItem = By.xpath("/html[1]/body[1]/app-root[1]/div[1]/div[1]/div[1]/div[1]/div[1]/app-add-agenda[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div[2]/div["+agendaNumber+"]/div[1]/div[5]/span[2]/img[1]");
-	
+
 	
 	By addNewAgendaItem = By.className("form-row addItem mb-4 ng-star-inserted");
 	By showPrivateNotes = By.xpath("//div[@class='d-flex justify-content-end']//span[1]");
@@ -34,6 +34,5 @@ WebDriverWait wait;
 		driver.findElement(editAgendaItem).click();
 		driver.findElement(editAgendaItem).clear();
 		driver.findElement(editAgendaItem).sendKeys("this is the agenda item created by automation");
-		
 	}
 }

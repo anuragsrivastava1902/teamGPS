@@ -1,4 +1,4 @@
-package teamGps.homePage.meetings.oneOnOneMeetings.createNewMeeting;
+package pages.homePage.meetings.oneOnOneMeetings.startMeeting;
 
 import java.time.Duration;
 
