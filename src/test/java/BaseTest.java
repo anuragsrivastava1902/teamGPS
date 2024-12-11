@@ -7,23 +7,23 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
 
-	WebDriver driver;
-	//@BeforeSuite
+	protected WebDriver driver;
+	@BeforeClass
 	public void setUp() {
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 
 		// Initialize the Page Object
-		LoginPage loginPage = new LoginPage(driver);
+		//LoginPage loginPage = new LoginPage(driver);
 
 		// Navigate to the login page
 		driver.get("https://itbd-stage-frontend.team-gps.net/login");
 
-		loginPage.enterUsername("lucas.sarzo@yopmail.com");
-		loginPage.clickNextButton();
-		loginPage.enterPassword("John@123");
-		loginPage.clickLoginButton();
+//		loginPage.enterUsername("lucas.sarzo@yopmail.com");
+//		loginPage.clickNextButton();
+//		loginPage.enterPassword("John@123");
+//		loginPage.clickLoginButton();
 	}
 
 	//@AfterSuite

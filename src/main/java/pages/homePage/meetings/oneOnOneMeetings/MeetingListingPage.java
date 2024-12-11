@@ -2,21 +2,19 @@ package pages.homePage.meetings.oneOnOneMeetings;
 
 import java.time.Duration;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class OneOnOneMeetingsPage {
+public class MeetingListingPage {
 	
 	WebDriver driver;
 	WebDriverWait wait;
 	
-	public OneOnOneMeetingsPage(WebDriver driver){
+	public MeetingListingPage(WebDriver driver){
 		this.driver = driver;
-		wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+		wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 	}
 	
 	//locators
@@ -35,18 +33,23 @@ public class OneOnOneMeetingsPage {
 	By sortByMeetingRecipient = By.xpath("//a[normalize-space()='Meeting Recipient']");
 	By sortByMeetingTitle = By.xpath("//a[normalize-space()='Meeting Title']");
 	By sortByFrequency = By.xpath("//th[@class='ng2-smart-th frequency ng-star-inserted']");
-	
+
+	//Locators for pagination
 	By previousPageButton = By.xpath("//li[@class='pagination-prev page-item disabled ng-star-inserted']");
 	By nextPageButton = By.xpath("//li[@class='pagination-next page-item disabled ng-star-inserted']");
 	By firstPageButton = By.xpath("//li[@class='pagination-first page-item disabled ng-star-inserted']");
 	By lastPageButton = By.xpath("//li[@class='pagination-last page-item disabled ng-star-inserted']");
-	
+
+
+	//LOCATORS FOR ELEMENTS UNDER ACTION COLUMN
 	By hamburgerIcon = By.xpath("//tbody/tr[1]/td[1]/ng2-smart-table-cell[1]/table-cell-view-mode[1]/div[1]/custom-view-component[1]/app-smart-table-actions[1]/div[1]/a[1]/img[1]");
 	By actionsModalWindow = By.xpath("//div[@class='dropdown-menu ng-star-inserted show']");
 	//By actionsModalWindow = By.xpath("//span[normalize-space()='Start']");
 	By startOptionInModalWindow = By.xpath("//span[normalize-space()='Start']");
 	By editMeetingButton = By.xpath("/html/body/app-root/div/div/div/div/div/app-meetings/div/div/div[2]/div/app-meeting-list/div[1]/div/div/ng2-smart-table/table/tbody/tr[1]/td[1]/ng2-smart-table-cell/table-cell-view-mode/div/custom-view-component/app-smart-table-actions/div/div/button[2]");
 	By editThisMeetingButton = By.xpath("//button[normalize-space()='Edit This Meeting']");
+	By cancelMeetingButton = By.xpath("(//span[contains(text(),'Cancel Meeting')])[1]");
+	By cancelThisMeetingButton = By.xpath("(//button[@class='dropdown-item ng-star-inserted'][normalize-space()='Cancel This Meeting'])[1]");
 	int meetingRowNumber;
 	
 	//By goToMeetingBtn = By.xpath("//tbody/tr["+meetingRowNumber+"]/td[7]/ng2-smart-table-cell[1]/table-cell-view-mode[1]/div[1]/custom-view-component[1]/app-button-action[1]/div[1]/button[1]");
@@ -125,6 +128,16 @@ public class OneOnOneMeetingsPage {
 		driver.switchTo().activeElement();
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//app-smart-table-actions/div/div/button[2]/div/div/button[1]"))).click();
 	}
+
+	public void clickCancelMeeting(int row) throws InterruptedException {
+		//driver.switchTo().activeElement();
+		clickHamburgerIcon(row);
+		driver.switchTo().activeElement();
+		wait.until(ExpectedConditions.visibilityOfElementLocated(cancelMeetingButton)).click();
+		//driver.switchTo().activeElement();
+		WebElement shorty = wait.until(ExpectedConditions.visibilityOfElementLocated(cancelThisMeetingButton));
+		((JavascriptExecutor)driver).executeScript("arguments[0].click()",shorty);
+	}
 	
 	public void clickStartMeeting(int row) throws InterruptedException {
 		clickHamburgerIcon(row);
@@ -134,5 +147,30 @@ public class OneOnOneMeetingsPage {
 	    startOption.click();
 	}
 
-	
+	public void clickOnPreviousPageButton(){
+		wait.until(ExpectedConditions.elementToBeClickable(previousPageButton)).click();
+	}
+
+	public void clickOnNextPageButton(){
+		wait.until(ExpectedConditions.elementToBeClickable(nextPageButton)).click();
+	}
+
+	public void clickOnFirstPageButton(){
+		wait.until(ExpectedConditions.elementToBeClickable(firstPageButton)).click();
+	}
+
+	public void clickOnLastPageButton(){
+		//scrollDownPageToPaginationButton();
+		//WebElement container = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/div/div/div/div/div/app-meetings/div/div/div[2]/div/app-meeting-list")));
+//		JavascriptExecutor js = ((JavascriptExecutor)driver);
+//		js.executeScript("arguments[0].scrollIntoView(true);", lastPageButton);
+		Actions actions = new Actions(driver);
+		actions.sendKeys(Keys.PAGE_DOWN).perform();
+		//wait.until(ExpectedConditions.elementToBeClickable(lastPageButton)).click();
+	}
+
+	private void scrollDownPageToPaginationButton() {
+
+	}
+
 }

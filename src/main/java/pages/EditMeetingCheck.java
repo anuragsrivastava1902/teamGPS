@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import pages.homePage.HomePage;
-import pages.homePage.meetings.oneOnOneMeetings.OneOnOneMeetingsPage;
+import pages.homePage.meetings.oneOnOneMeetings.MeetingListingPage;
 import pages.loginPage.LoginPage;
 
 public class EditMeetingCheck {
@@ -31,7 +31,7 @@ public class EditMeetingCheck {
 	mp.clickOnMeetings();
 	mp.clickOnOneOnOneMeetings();
 	
-	OneOnOneMeetingsPage one = new OneOnOneMeetingsPage(driver);
+	MeetingListingPage one = new MeetingListingPage(driver);
 	Thread.sleep(6000);
 	one.clickEditMeeting(1);
 	}

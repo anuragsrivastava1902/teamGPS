@@ -70,7 +70,7 @@ public class CreateEventPage {
 		WebElement recurringLink = wait.until(ExpectedConditions.elementToBeClickable(makeMeetingRecurringLink));
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", recurringLink);
 		//driver.findElement(makeMeetingRecurringLink).click();
-		RecurringMeetingPage recurringMeetingPage = new RecurringMeetingPage(driver);
+		RepeatPatternPage recurringMeetingPage = new RepeatPatternPage(driver);
 		recurringMeetingPage.switchToRecurringModal();
 	}
 	

@@ -29,8 +29,12 @@ public class SelectTemplatePage {
 	
 	//Action methods for interacting with select template page which comes in second step while creating an One-on-One meeting
 	
-	public void clickDefaultTemplate() {
+	public void clickOnDefaultTemplate() {
 		wait.until(ExpectedConditions.elementToBeClickable(defaultTemplateButton)).click();
+	}
+
+	public void clickOnFromScratch() {
+		wait.until(ExpectedConditions.elementToBeClickable(fromScratchButton)).click();
 	}
 	
 	public void clickSaveAndNextButton() {

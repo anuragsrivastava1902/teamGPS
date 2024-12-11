@@ -22,18 +22,22 @@ public class EditMeetingPage {
 	// Locators
 	// We have to take considerations of the scenario, where the meeting being
 	// created is not between the employee and his manager
-
 	By meetingTitle = By.xpath("//input[@class='ng-pristine ng-valid ng-touched']");
 
+	//Locators for different tabs that are shown inside the meeting
 	By agendaTab = By.xpath("//a[contains('Agenda')]");
 	By meetingSurveyTab = By.xpath("(//a[normalize-space()='Meeting Survey'])[1]");
-	By tasksTab = By.xpath("//a[@id='ngb-nav-6']");
+	By scorecardTab = By.id("ngb-nav-25");
+	//By tasksTab = By.className("nav-link.nav-item.ng-star-inserted.active");
+	By tasksTab = By.xpath("//a[contains(text(), 'Tasks') and contains(@class, 'nav-link') and contains(@class, 'nav-item') and contains(@class, 'ng-star-inserted')]");
+	By activityTab = By.id("ngb-nav-23");
+	By goalsTab = By.id("ngb-nav-24");
 
+	//Locator for the "create task" button that is accessible from every tab inside the 1:1 meeting
 	By createTaskButton = By.xpath("//span[normalize-space()='Create Task']");
 
-	By repeatPatternBtn = By.xpath("//div[@class='timeDiv pointer']");
-
-
+	//Locator for the "meeting time and date element" which is located on the top right position inside the meeitng
+	By repeatPatternButton = By.xpath("//div[@class='timeDiv pointer']");
 
 	By saveAndSendUpdateButton = By.xpath("//button[normalize-space()='Save & Send Update']");
 	By addToCalendarSkipbutton = By.xpath("//button[normalize-space()='Skip']");
@@ -41,19 +45,40 @@ public class EditMeetingPage {
 
 	// Action methods
 	
-	public void clickAgendaTab() {
+	public void clickOnAgendaTab() {
 		wait.until(ExpectedConditions.elementToBeClickable(agendaTab));
 		driver.findElement(agendaTab).click();
 	}
 
-	public void clickMeetingSurveyTab() {
+	public void clickOnMeetingSurveyTab() {
 		wait.until(ExpectedConditions.elementToBeClickable(meetingSurveyTab)).click();
+	}
+
+	public void clickOnTasksTab() {
+		wait.until(ExpectedConditions.visibilityOfElementLocated(tasksTab));
+		WebElement tab = wait.until(ExpectedConditions.elementToBeClickable(tasksTab));
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();",tab);
+
+	}
+
+	public void clickOnScorecardTab() {
+		wait.until(ExpectedConditions.elementToBeClickable(scorecardTab)).click();
+	}
+
+	public void clickOnActivityTab() {
+		wait.until(ExpectedConditions.elementToBeClickable(activityTab)).click();
+	}
+
+	public void clickOnGoalsTab() {
+		wait.until(ExpectedConditions.elementToBeClickable(goalsTab)).click();
 	}
 
 	public void clickOnCreateTaskButton(){
 		WebElement button = wait.until(ExpectedConditions.elementToBeClickable(createTaskButton));
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", button);
 	}
+
+
 
 	public void clickSaveAndSendUpdateButton() {
 		try {
