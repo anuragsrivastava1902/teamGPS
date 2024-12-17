@@ -28,10 +28,9 @@ public class EditMeetingPage {
 	By agendaTab = By.xpath("//a[contains('Agenda')]");
 	By meetingSurveyTab = By.xpath("(//a[normalize-space()='Meeting Survey'])[1]");
 	By scorecardTab = By.id("ngb-nav-25");
-	//By tasksTab = By.className("nav-link.nav-item.ng-star-inserted.active");
 	By tasksTab = By.xpath("//a[contains(text(), 'Tasks') and contains(@class, 'nav-link') and contains(@class, 'nav-item') and contains(@class, 'ng-star-inserted')]");
 	By activityTab = By.id("ngb-nav-23");
-	By goalsTab = By.id("ngb-nav-24");
+	By goalsTab = By.id("ngb-nav-4");
 
 	//Locator for the "create task" button that is accessible from every tab inside the 1:1 meeting
 	By createTaskButton = By.xpath("//span[normalize-space()='Create Task']");

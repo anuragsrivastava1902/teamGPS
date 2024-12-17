@@ -27,27 +27,35 @@ public class LoginPage {
 	
 	
 	//Actions on 1:1 meetings page
+
+	public void login(String email, String password){
+		enterUsername(email).clickNextButton().enterPassword(password).clickLoginButton();
+	}
 	
-	
-	public void enterUsername(String email) {
+	public LoginPage enterUsername(String email) {
 		//wait.until(ExpectedConditions.visibilityOfElementLocated(emailInputField)).sendKeys(email);
 		driver.findElement(emailInputField).sendKeys(email);
+		return this;
 	}
 	
-	public void clickNextButton() {
+	public LoginPage clickNextButton() {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(nextButton)).click();
+		return this;
 	}
 	
-	public void enterPassword(String password) {
+	public LoginPage enterPassword(String password) {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInputField)).sendKeys(password);
+		return this;
 	}
 	
-	public void clickLoginButton() {
+	public LoginPage clickLoginButton() {
 		driver.findElement(loginButton).click();
+		return this;
 	}
 	
-	public void clickForgotPassword() {
-		 wait.until(ExpectedConditions.elementToBeClickable(forgotPasswordLink)).click();
+	public LoginPage clickForgotPassword() {
+		wait.until(ExpectedConditions.elementToBeClickable(forgotPasswordLink)).click();
+		return this;
 	}
 	
 

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-  <test thread-count="5" name="Test">
+  <test name="Test">
     <classes>
-      <class name="BaseTest"/>
-      <class name="LoginTest"/>
-      <class name="CreateMeetingTest"/>
+      <!--<class name="baseTest.BaseTest"/>-->
+      <!--<class name="loginTest.LoginTest"/>-->
+      <!--<class name="createMeetingTest.CreateMeetingTest"/>
+      <class name="createMeetingTest.CreateMeetingTest2"/>-->
+      <class name="createMeetingTest.CancelMeetingTest"></class>
 <!--      <class name="EndToEndTest"/>-->
     </classes>
   </test> <!-- Test -->

@@ -12,38 +12,30 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class HomePage {
 	
 	WebDriver driver;
+	WebDriverWait wait;
 	
 	public HomePage(WebDriver driver){
 		this.driver = driver;
+		wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 	}
 	
-	//Locators
-	
+	//Locators inside the homepage in the left menu
 	By meetingModule = By.xpath("//span[normalize-space()='Meetings']");
-	//By meetingModule = By.xpath("//li[@class='sidenav-item hover-link']//a[@class='sidenav-link userguide_Meet']");
-	By groupMeetingModule = By.xpath("//ul[@class='sidenav level-2 collapse show']//li[2]//a[1]//span[1]");
-	//By oneOnOneMeeting = By.xpath("/html[1]/body[1]/app-root[1]/div[1]/div[1]/div[1]/div[1]/app-admin-nav[1]/div[2]/ul[1]/li[3]/ul[1]/li[1]/a[1]/span[1]");
+	By groupMeetingModule = By.xpath("//span[normalize-space()='Group Meetings']");
 	By oneOnOneMeetingModule = By.xpath("//span[normalize-space()='1:1 Meetings']");
-	//Actions
-	
+
+	//Action methods
 	public void clickOnMeetings() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(meetingModule));
-		WebElement meetingElement = driver.findElement(meetingModule);
+		WebElement meetingElement = wait.until(ExpectedConditions.elementToBeClickable(meetingModule));
 	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", meetingElement);
 	}
 	
 	public void clickOnOneOnOneMeetings() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(oneOnOneMeetingModule));
-		WebElement oneOnOneMeetingElement = driver.findElement(oneOnOneMeetingModule);
+		WebElement oneOnOneMeetingElement = wait.until(ExpectedConditions.elementToBeClickable(oneOnOneMeetingModule));
 	    ((JavascriptExecutor) driver).executeScript("arguments[0].click();", oneOnOneMeetingElement);
-
 	}
 	
 	public void clickOnGroupMeetings() {
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-		wait.until(ExpectedConditions.visibilityOfElementLocated(groupMeetingModule));
-		driver.findElement(groupMeetingModule).click();
+		wait.until(ExpectedConditions.elementToBeClickable(groupMeetingModule)).click();
 	}
 }

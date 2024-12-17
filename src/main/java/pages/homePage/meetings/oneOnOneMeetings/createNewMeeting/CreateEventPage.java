@@ -7,6 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CreateEventPage {
@@ -22,7 +23,7 @@ public class CreateEventPage {
 	
 	
 	//Locators -
-	By addRecipientDropdown = By.xpath("//div[@class='ng-select-container']//div[@class='ng-value-container']");
+	By addRecipientDropdown = By.cssSelector(".ng-value-container");
 	By eventTitleInput = By.xpath("//input[@placeholder='Enter Title']");
 	
 	//--Start time section
@@ -47,6 +48,7 @@ public class CreateEventPage {
 	//?? there is one issue here, the dropdown is not automatically getting clicked..
 	//..and we need it to click manually for option to be selected
 	public void addRecipient(String option){
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".backdrop.full-screen")));
 		WebElement dropdown = wait.until(ExpectedConditions.elementToBeClickable(addRecipientDropdown));
 	    //((JavascriptExecutor)driver).executeScript("arguments[0].click();", dropdown);
 		dropdown.click();
@@ -63,15 +65,43 @@ public class CreateEventPage {
 	}
 	
 	public void clickOnCreateButton() {
-		driver.findElement(createButton).click();
+		wait.until(ExpectedConditions.elementToBeClickable(createButton)).click();
+	}
+
+	public void clickOnCancelButton() {
+		wait.until(ExpectedConditions.elementToBeClickable(cancelButton)).click();
 	}
 	
-	public void clickOnRecurringMeeting() throws InterruptedException {
+	public void clickOnRecurringMeetingLink() throws InterruptedException {
 		WebElement recurringLink = wait.until(ExpectedConditions.elementToBeClickable(makeMeetingRecurringLink));
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", recurringLink);
 		//driver.findElement(makeMeetingRecurringLink).click();
 		RepeatPatternPage recurringMeetingPage = new RepeatPatternPage(driver);
 		recurringMeetingPage.switchToRecurringModal();
+	}
+
+	public void clickOnMeetingStartDate(){
+		wait.until(ExpectedConditions.elementToBeClickable(startDateInputField)).click();
+		WebElement selectYear = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@title='Select year']")));
+		Select select2 = new Select(selectYear);
+		select2.selectByVisibleText("2025");
+		WebElement selectMonth = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@title='Select month']")));
+		Select select = new Select(selectMonth);
+		select.selectByVisibleText("Jan");
+		WebElement selectDay = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'16')]")));
+		selectDay.click();
+	}
+
+	public void clickOnMeetingEndDate(){
+		wait.until(ExpectedConditions.elementToBeClickable(endDateInputField)).click();
+		WebElement selectYear = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@title='Select year']")));
+		Select select2 = new Select(selectYear);
+		select2.selectByVisibleText("2025");
+		WebElement selectMonth = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@title='Select month']")));
+		Select select = new Select(selectMonth);
+		select.selectByVisibleText("Jan");
+		WebElement selectDay = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(text(),'16')]")));
+		selectDay.click();
 	}
 	
 }

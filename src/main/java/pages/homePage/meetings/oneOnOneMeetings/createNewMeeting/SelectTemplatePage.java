@@ -36,7 +36,11 @@ public class SelectTemplatePage {
 	public void clickOnFromScratch() {
 		wait.until(ExpectedConditions.elementToBeClickable(fromScratchButton)).click();
 	}
-	
+
+	public void clickOnPreviousButton() {
+		wait.until(ExpectedConditions.elementToBeClickable(previousButton)).click();
+	}
+
 	public void clickSaveAndNextButton() {
 		wait.until(ExpectedConditions.elementToBeClickable(saveAndNextButton)).click();
 	}

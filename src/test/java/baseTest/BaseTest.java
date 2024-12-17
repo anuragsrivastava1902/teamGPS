@@ -1,3 +1,5 @@
+package baseTest;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
@@ -7,6 +9,9 @@ import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
 
+	private static final String USERNAME = "lucas.sarzo@yopmail.com";
+	private static final String PASSWORD = "John@123";
+
 	protected WebDriver driver;
 	@BeforeClass
 	public void setUp() {
@@ -14,20 +19,16 @@ public class BaseTest {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 
-		// Initialize the Page Object
-		//LoginPage loginPage = new LoginPage(driver);
-
-		// Navigate to the login page
+		// Go to the login page
 		driver.get("https://itbd-stage-frontend.team-gps.net/login");
-
-//		loginPage.enterUsername("lucas.sarzo@yopmail.com");
-//		loginPage.clickNextButton();
-//		loginPage.enterPassword("John@123");
-//		loginPage.clickLoginButton();
+		LoginPage loginPage = new LoginPage(driver);
+		loginPage.login(USERNAME,PASSWORD);
 	}
 
-	//@AfterSuite
+	@AfterClass
 	public void tearDown() {
+		//this is just for testing
+		System.out.println("WebDriver quitting: " + driver.hashCode());
 		// Close the driver after the test
 		if (driver != null) {
 			driver.quit();

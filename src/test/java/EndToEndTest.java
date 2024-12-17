@@ -1,7 +1,11 @@
+import baseTest.BaseTest;
 import org.testng.annotations.Test;
 import pages.homePage.HomePage;
 import pages.homePage.meetings.oneOnOneMeetings.MeetingListingPage;
-import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.*;
+import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.CreateEventPage;
+import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.EditMeetingPage;
+import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.GoalsTabPage;
+import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.SelectTemplatePage;
 import pages.loginPage.LoginPage;
 
 public class EndToEndTest extends BaseTest {
@@ -30,40 +34,52 @@ public class EndToEndTest extends BaseTest {
 		MeetingListingPage meetingListingPage = new MeetingListingPage(driver);
 		//meetingListingPage.clickStartMeeting(1);
 		//meetingListingPage.clickEditMeeting(1); // why is it not working with the meeting in the second row or third row
-		//meetingListingPage.clickCreateMeeting();
-		meetingListingPage.clickOnLastPageButton();
+		meetingListingPage.clickCreateMeeting();
+		//Thread.sleep(15000);
+		//meetingListingPage.clickOnLastPageButton();
+		//meetingListingPage.clickOnFirstPageButton();
+		//meetingListingPage.clickOnNextPageButton();
+		//meetingListingPage.clickOnPreviousPageButton();
 		//meetingListingPage.clickCancelMeeting(1);
+		//meetingListingPage.selectMeetingByDate("2026","May",21);
 		
 		//MeetingListingPage meetingListingPage = new MeetingListingPage(driver);
 		//meetingListingPage.clickOnCompleteMeetingbutton();
 
 
 		//-- Interact with the Create Event page of the new One-on-One meeting being created
-//		CreateEventPage createEventPage = new CreateEventPage(driver);
-//		createEventPage.addRecipient("Tanishk");
-//		createEventPage.setEventTitle("meeting with Tanishk");
-//		createEventPage.clickOnRecurringMeeting();
-//		createEventPage.clickOnCreateButton();
+		CreateEventPage createEventPage = new CreateEventPage(driver);
+		createEventPage.addRecipient("Shri");
+		createEventPage.setEventTitle("meeting 12 dec");
+		//createEventPage.clickOnRecurringMeeting();
+		createEventPage.clickOnCreateButton();
+		//createEventPage.clickOnCancelButton();
+
 
 		//-- Interact with the select Template page which comes in second step while creating the meeting
-//		SelectTemplatePage selectTemplatePage = new SelectTemplatePage(driver);
-//		selectTemplatePage.clickOnDefaultTemplate();
-//		selectTemplatePage.clickOnFromScratch();
-//		selectTemplatePage.clickSaveAndNextButton();
+		SelectTemplatePage selectTemplatePage = new SelectTemplatePage(driver);
+		selectTemplatePage.clickOnDefaultTemplate();
+		selectTemplatePage.clickOnFromScratch();
+		//selectTemplatePage.clickOnPreviousButton();
+		selectTemplatePage.clickSaveAndNextButton();
 
 		//-- Interact with the Edit Meeting page which comes in third step while creating the meeting
-//		EditMeetingPage editMeetingPage = new EditMeetingPage(driver);
+		EditMeetingPage editMeetingPage = new EditMeetingPage(driver);
 //		editMeetingPage.clickOnMeetingSurveyTab();
 //		editMeetingPage.clickOnCreateTaskButton();
 //		editMeetingPage.clickSaveAndSendUpdateButton();
 //		editMeetingPage.clickAddToCalendarButton();
 //		editMeetingPage.clickSkipCalendarButton();
-//		editMeetingPage.clickOnTasksTab();
+		//editMeetingPage.clickOnTasksTab();
+		editMeetingPage.clickOnGoalsTab();
 
 //		MeetingSurveyTabPage meetingSurveyTabPage = new MeetingSurveyTabPage(driver);
 //		meetingSurveyTabPage.clickOnAssignSurveyButton();
 //		meetingSurveyTabPage.clickOnMeetingTemplatePreview();
 		//meetingSurveyTabPage.clickOnUseTemplate();
+
+		GoalsTabPage goalsTabPage = new GoalsTabPage(driver);
+		goalsTabPage.clickSearchIcon();
 
 //		SurveyPreviewPage surveyPreviewPage = new SurveyPreviewPage(driver);
 //		surveyPreviewPage.clickOnCloseButton();
