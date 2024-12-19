@@ -13,7 +13,7 @@ public class MeetingSurveyTabPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    public MeetingSurveyTabPage(WebDriver driver){
+    public MeetingSurveyTabPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
@@ -24,12 +24,12 @@ public class MeetingSurveyTabPage {
     By meetingPreviewButton = By.xpath("//div[@class='container scrollClass']//div[2]//div[1]//div[1]//div[2]//div[1]//button[1]");
     By useTemplateButton = By.xpath("(//button[contains(text(),'Use Template')])[2]");
 
-    public void clickOnAssignSurveyButton(){
+    public void clickOnAssignSurveyButton() {
         wait.until(ExpectedConditions.elementToBeClickable(assignSurveyButton)).click();
         driver.switchTo().activeElement();
     }
 
-    public void clickOnMeetingTemplatePreview(){
+    public void clickOnMeetingTemplatePreview() {
         //wait.until(ExpectedConditions.elementToBeClickable(assignSurveyButton)).click();
         //driver.switchTo().activeElement();
         WebElement card = wait.until(ExpectedConditions.elementToBeClickable(surveyTemplateCard));
@@ -39,13 +39,13 @@ public class MeetingSurveyTabPage {
         driver.switchTo().activeElement();
     }
 
-    public void clickOnSurveyTemplateSearch(){
+    public void clickOnSurveyTemplateSearch() {
         wait.until(ExpectedConditions.elementToBeClickable(assignSurveyButton)).click();
         driver.switchTo().activeElement();
 
     }
 
-    public void clickOnUseTemplate(){
+    public void clickOnUseTemplate() {
         wait.until(ExpectedConditions.elementToBeClickable(assignSurveyButton)).click();
         driver.switchTo().activeElement();
         WebElement card = wait.until(ExpectedConditions.elementToBeClickable(surveyTemplateCard));

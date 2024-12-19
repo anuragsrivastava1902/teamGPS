@@ -27,11 +27,11 @@ public class SurveyPreviewPage {
         wait.until(ExpectedConditions.elementToBeClickable(closeButton)).click();
     }
 
-    public void clickOnUseTemplateButton(){
+    public void clickOnUseTemplateButton() {
         wait.until(ExpectedConditions.elementToBeClickable(useTemplateButton)).click();
     }
 
-    public void clickOnCancelButton(){
+    public void clickOnCancelButton() {
         wait.until(ExpectedConditions.elementToBeClickable(cancelButton)).click();
     }
 }

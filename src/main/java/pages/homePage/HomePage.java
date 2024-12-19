@@ -23,6 +23,7 @@ public class HomePage {
 	By meetingModule = By.xpath("//span[normalize-space()='Meetings']");
 	By groupMeetingModule = By.xpath("//span[normalize-space()='Group Meetings']");
 	By oneOnOneMeetingModule = By.xpath("//span[normalize-space()='1:1 Meetings']");
+	By SocialFeedModule = By.xpath("//span[normalize-space()='Social Feed']");
 
 	//Action methods
 	public void clickOnMeetings() {
@@ -38,4 +39,11 @@ public class HomePage {
 	public void clickOnGroupMeetings() {
 		wait.until(ExpectedConditions.elementToBeClickable(groupMeetingModule)).click();
 	}
+
+	public void clickOnSocialFeed() throws InterruptedException {
+		WebElement socialFeedElement = wait.until(ExpectedConditions.elementToBeClickable(SocialFeedModule));
+		((JavascriptExecutor) driver).executeScript("arguments[0].click();", socialFeedElement);
+		System.out.println("clicked social feed");
+	}
+
 }

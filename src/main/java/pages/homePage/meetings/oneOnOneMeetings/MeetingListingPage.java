@@ -204,7 +204,6 @@ public class MeetingListingPage {
 
     public boolean isMeetingDisplayed(String meetingTitle) {
         try {
-            // Find all meeting elements and check if any have the correct title
             List<WebElement> meetings = driver.findElements(By.xpath("//div[@class='ellipsis-data ng-star-inserted']"));
             for (WebElement meeting : meetings) {
                 if (meeting.getText().equals(meetingTitle)) {
