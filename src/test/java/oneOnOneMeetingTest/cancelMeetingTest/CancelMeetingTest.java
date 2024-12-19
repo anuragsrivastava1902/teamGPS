@@ -1,6 +1,5 @@
-package createMeetingTest;
+package oneOnOneMeetingTest.cancelMeetingTest;
 
-import baseTest.BaseTest;
 import baseTest.HeadlessBaseTest;
 import org.testng.annotations.Test;
 import pages.homePage.HomePage;

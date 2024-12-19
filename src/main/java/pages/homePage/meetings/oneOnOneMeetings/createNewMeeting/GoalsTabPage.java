@@ -1,24 +1,30 @@
 package pages.homePage.meetings.oneOnOneMeetings.createNewMeeting;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
+import java.util.List;
 
 public class GoalsTabPage {
 
     WebDriver driver;
     WebDriverWait wait;
 
-    public GoalsTabPage(WebDriver driver){
+    public GoalsTabPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
     }
-    // Dynamic locators for elements on the Goal tab
 
-    // Goal Tab [already defined in the edit meeting class]
-    //By goalTab = By.xpath("//a[contains(@class, 'nav-link') and contains(text(), 'Goals')]");
+//  locators
+    By goalsCard = By.cssSelector(".list-group-item.ng-star-inserted");
+    By goalsCardSmall = By.cssSelector(".overflow-wrapper");
+    By goalsTab = By.id("ngb-nav-4");
+
 
     // Search Box [where is the search box inside the goals tab?]
     By searchIcon = By.xpath("//div[contains(@class, 'goalSearch')]//img[@alt='search']");
@@ -28,20 +34,18 @@ public class GoalsTabPage {
     By goalTypeDropdown = By.xpath("//ng-select[@formcontrolname='goal_type']");
     //By goalSourceSelectedValue = By.xpath("//ng-select[@formcontrolname='goal_type']//span[@class='ng-value-label']");
     //By goalSourcePlaceholder = By.xpath("//ng-select[@formcontrolname='goal_type']//div[contains(@class, 'ng-placeholder')]");
-
     // Status Dropdown
     By goalStatusDropdown = By.xpath("//ng-select[@placeholder='Status']//div[@class='ng-select-container ng-has-value']");
     //By statusSelectedValue = By.xpath("//ng-select[@formcontrolname='status']//span[@class='ng-value-label']");
     //By statusPlaceholder = By.xpath("//ng-select[@formcontrolname='status']//div[contains(@class, 'ng-placeholder')]");
-
     // Due Date Filter
+    By ClickOnGoal = By.xpath("//*[@id=\"collapseundefined\"]/div/div/ul/li[1]/div/div/div[1]/div");
+    By DuplicateGoal = By.xpath("//div[@class='d-inline-block download-report-ui show dropdown']//a[@id='custom-action-option']/img[@alt='edit-icon']");
     By calendarIcon = By.xpath("//span[contains(@class, 'calendarIcon')]//img[contains(@src, 'calendar.svg')]");
     By dueDateDropdown = By.xpath("//ng-select[contains(@placeholder, 'Due Date')]");
     By dueDatePlaceholder = By.xpath("//ng-select[contains(@placeholder, 'Due Date')]//div[contains(@class, 'ng-placeholder')]");
-
     By goalStartDateDatePicker = By.xpath("//div[@class='input-container']//input[@id='startdate']");
-    By goaleEndDateDatePicker = By.xpath("//div[@class='input-container']//input[@id='enddate']");
-
+    By goalEndDateDatePicker = By.xpath("//div[@class='input-container']//input[@id='enddate']");
     // Create Goal Button
     By createGoalButton = By.xpath("//button[contains(@class, 'createGoal') and contains(text(), 'Create Goal')]");
 
@@ -57,35 +61,23 @@ public class GoalsTabPage {
         driver.findElement(searchInputField).sendKeys(searchTerm);
     }
 
-    // Select a value from the Goal Source dropdown
-    /*public void selectGoalSource(String goalSource) {
-        driver.findElement(goalSourceDropdown).sendKeys(goalSource);
-    }*/
+    public void ClickOnAGoal() {
+        List<WebElement> goalsCardList = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(goalsCardSmall));
+        if(!goalsCardList.isEmpty()){
+            System.out.println("list not empty");
+            for(WebElement goal : goalsCardList){
+                System.out.println(goal.getText());
+                if(goal.getText().contains("department")){
+                    //wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".btn.btn-outline-primary.mr-3.px-3.w-100.ng-star-inserted")));
+                    goal.click();
+                }
+            }
+        }
+    }
 
-    // Get selected value from the Goal Source dropdown
-    /*public String getSelectedGoalSource() {
-        return driver.findElement(goalSourceSelectedValue).getText();
-    }*/
-
-    // Get the placeholder value of the Goal Source dropdown
-    /*public String getGoalSourcePlaceholder() {
-        return driver.findElement(goalSourcePlaceholder).getText();
-    }*/
-
-    // Select a value from the Status dropdown
-    /*public void selectStatus(String status) {
-        driver.findElement(statusDropdown).sendKeys(status);
-    }*/
-
-    // Get selected value from the Status dropdown
-    /*public String getSelectedStatus() {
-        return driver.findElement(statusSelectedValue).getText();
-    }*/
-
-    // Get the placeholder value of the Status dropdown
-    /*public String getStatusPlaceholder() {
-        return driver.findElement(statusPlaceholder).getText();
-    }*/
+    public void clickOnDropdown() {
+        wait.until(ExpectedConditions.elementToBeClickable(DuplicateGoal)).click();
+    }
 
     // Click on the calendar icon for Due Date filter
     public void clickCalendarIcon() {

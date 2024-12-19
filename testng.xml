@@ -3,12 +3,9 @@
 <suite name="Suite">
   <test name="Test">
     <classes>
-      <!--<class name="baseTest.BaseTest"/>-->
-      <!--<class name="loginTest.LoginTest"/>-->
-      <!--<class name="createMeetingTest.CreateMeetingTest"/>
-      <class name="createMeetingTest.CreateMeetingTest2"/>-->
-      <class name="createMeetingTest.CancelMeetingTest"></class>
-<!--      <class name="EndToEndTest"/>-->
+      <class name="oneOnOneMeetingTest.createMeetingTest.CreateMeetingTest"/>
+      <class name="oneOnOneMeetingTest.createMeetingTest.CreateMeetingRecurringTest"/>
+      <class name="oneOnOneMeetingTest.createMeetingTest.TabNavigationTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

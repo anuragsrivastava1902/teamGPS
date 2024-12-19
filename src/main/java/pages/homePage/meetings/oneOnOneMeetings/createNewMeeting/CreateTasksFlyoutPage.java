@@ -14,7 +14,7 @@ public class CreateTasksFlyoutPage {
     WebDriver driver;
     WebDriverWait wait;
 
-    public CreateTasksFlyoutPage(WebDriver driver){
+    public CreateTasksFlyoutPage(WebDriver driver) {
         this.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
@@ -25,27 +25,27 @@ public class CreateTasksFlyoutPage {
     By taskDescription = By.xpath("//div[@data-placeholder='Write description(optional)']");
     By saveButton = By.xpath("//button[normalize-space()='Save']");
 
-    public void enterTaskName(String nameOfTask){
+    public void enterTaskName(String nameOfTask) {
         //WebElement flyoutFrame = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='slide-out position_CT']")));
         driver.switchTo().activeElement();
         wait.until(ExpectedConditions.elementToBeClickable(taskName)).sendKeys(nameOfTask);
     }
 
-    public void enterTaskAssignee(String assignee){
+    public void enterTaskAssignee(String assignee) {
         wait.until(ExpectedConditions.elementToBeClickable(taskAssignee)).click();
-        WebElement assigneeOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[normalize-space()='"+assignee+"']")));
+        WebElement assigneeOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[normalize-space()='" + assignee + "']")));
         assigneeOption.click();
     }
 
-    public void enterTaskDescription(){
+    public void enterTaskDescription() {
         wait.until(ExpectedConditions.elementToBeClickable(taskDescription)).sendKeys("this is the task description to validate the sendkeys method");
     }
 
-    public void clickOnSaveButton(){
+    public void clickOnSaveButton() {
         wait.until(ExpectedConditions.elementToBeClickable(saveButton)).click();
     }
 
-    public void clickOnTaskDueDate(){
+    public void clickOnTaskDueDate() {
         wait.until(ExpectedConditions.elementToBeClickable(taskDueDate)).click();
         WebElement selectMonth = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//select[@title='Select month']")));
         Select select = new Select(selectMonth);

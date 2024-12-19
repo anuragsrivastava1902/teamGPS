@@ -2,67 +2,67 @@ package pages.homePage.meetings.oneOnOneMeetings.createNewMeeting;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class ActivityTabPage {
 
     WebDriver driver;
     WebDriverWait wait;
 
-    public ActivityTabPage(WebDriver driver){
+    public ActivityTabPage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    // Locator for the "Shoutouts Given" card
-    By shoutoutsGivenCard = By.xpath("//div[contains(@class, 'card-title') and text()='Shoutouts Given ']");
 
-    // Locator for the "Shoutouts Received" card
-    By shoutoutsReceivedCard = By.xpath("//div[contains(@class, 'card-title') and text()='Shoutouts Received ']");
+    By shoutoutsGivenCard = By.xpath("//div[contains(@class, 'card-title') and normalize-space(text())='Shoutouts Given']");
+    By shoutoutsReceivedCard = By.xpath("//div[contains(@class, 'card-title') and normalize-space(text())='Shoutouts Received']");
+    By csatResponsesCard = By.xpath("//div[contains(@class, 'card-title') and normalize-space(text())='CSAT Responses']");
 
-    // Locator for the "CSAT Responses" card
-    By csatResponsesCard = By.xpath("//div[contains(@class, 'card-title') and text()='CSAT Responses']");
-
-    // Locator for the "No Data Found" message inside card details
-    By noDataFoundMessage = By.xpath("//div[contains(@class, 'noDataFound')]//p[text()='No Data Found!']");
-
-    // Locator for the Date Range Dropdown
-    By dateRangeDropdown = By.xpath("//ng-select[contains(@class, 'date-range-filter')]");
-
-    // Locator for the options within the Date Range Dropdown (dynamic)
-    By dateRangeOption(String optionText) {
-        return By.xpath("//ng-dropdown-panel//span[text()='" + optionText + "']");
-    }
+    By dateRangeDropdown = By.cssSelector("ng-select[placeholder='Select Date Range']");
 
     // Method to get locator for Shoutouts Given Card
-    public By getShoutoutsGivenCard() {
-        return shoutoutsGivenCard;
+    public void getShoutoutsGivenCard() {
+        wait.until(ExpectedConditions.elementToBeClickable(shoutoutsGivenCard)).click();
     }
 
     // Method to get locator for Shoutouts Received Card
-    public By getShoutoutsReceivedCard() {
-        return shoutoutsReceivedCard;
+    public void getShoutoutsReceivedCard() {
+        wait.until(ExpectedConditions.elementToBeClickable(shoutoutsReceivedCard)).click();
     }
 
     // Method to get locator for CSAT Responses Card
-    public By getCsatResponsesCard() {
-        return csatResponsesCard;
+    public void getCsatResponsesCard() {
+        wait.until(ExpectedConditions.elementToBeClickable(csatResponsesCard)).click();
     }
 
-    // Method to get locator for "No Data Found" message
-    public By getNoDataFoundMessage() {
-        return noDataFoundMessage;
-    }
+    public void getDateRangeDropdown() {
+        // Wait until the dropdown is clickable and open it
+        wait.until(ExpectedConditions.elementToBeClickable(dateRangeDropdown)).click();
 
-    // Method to get locator for Date Range Dropdown
-    public By getDateRangeDropdown() {
-        return dateRangeDropdown;
-    }
+        // Wait for the dropdown options to be visible
+        By dropdownOptions = By.xpath("//div[@aria-expanded='true']//span");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(dropdownOptions));
 
-    // Method to get dynamic locator for a specific Date Range option
-    public By getDateRangeOption(String optionText) {
-        return dateRangeOption(optionText);
+        // Find all the options inside the dropdown
+        List<WebElement> options = driver.findElements(dropdownOptions);
+
+        // Iterate through each option and click on them sequentially
+        for (WebElement option : options) {
+            // Click on the option
+            option.click();
+
+            // Optionally, you can perform a verification step here, e.g., check the selected value
+            WebElement selectedValue = driver.findElement(By.cssSelector(".ng-value-container span"));
+            System.out.println("Selected Option: " + selectedValue.getText());
+
+            // Re-open the dropdown for the next iteration if necessary
+            wait.until(ExpectedConditions.elementToBeClickable(dateRangeDropdown)).click();
+        }
     }
 }

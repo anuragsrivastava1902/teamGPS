@@ -20,10 +20,10 @@ public class LoginTest extends BaseTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Assert.assertEquals(driver.getCurrentUrl(),"https://itbd-stage-frontend.team-gps.net/admin/home");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://itbd-stage-frontend.team-gps.net/admin/home");
     }
 
-    public void testInvalidLogin(){
+    public void testInvalidLogin() {
 
         // -- Interact with the login page
         LoginPage loginPage = new LoginPage(driver);
@@ -36,6 +36,6 @@ public class LoginTest extends BaseTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Assert.assertEquals(driver.getCurrentUrl(),"https://itbd-stage-frontend.team-gps.net/login");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://itbd-stage-frontend.team-gps.net/login");
     }
 }
