@@ -23,7 +23,7 @@ public class TasksTabPage {
 
     By searchTaskNameInputField = By.xpath("//input[@placeholder='Search Task Name']");
     By createTaskButton = By.xpath("//button[normalize-space()='+Create Task']");
-    By taskSourceDropdown = By.xpath("//ng-select[@placeholder='Task Source: All']//div[@class='ng-value-container']");
+    By taskSourceDropdown = By.xpath("//ng-select[@placeholder='Task Source: All']//span[@class='ng-arrow-wrapper']");
     By taskStatusDropdown = By.xpath("//ng-select[@placeholder='Status : Open']//span[@class='ng-arrow-wrapper']");
     By taskDueDateDropdown = By.xpath("//div[@class='ng-select-container']//span[@class='ng-arrow-wrapper']");
 
@@ -37,14 +37,19 @@ public class TasksTabPage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(createTaskButton));
         wait.until(ExpectedConditions.elementToBeClickable(createTaskButton)).click();
 //        js.executeScript("window.scrollBy(0, -300);");
-//        driver.switchTo().activeElement();
+        driver.switchTo().activeElement();
     }
 
-    public void clickOnTaskSourceDropdown() {
-        WebElement taskDropdownElement = wait.until(ExpectedConditions.elementToBeClickable(taskSourceDropdown));
-        taskDropdownElement.click();
-        List<WebElement> taskSourceList = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".ng-option-label.ng-star-inserted")));
-        taskSourceList.get(0).click();
+    public void clickOnTaskSourceDropdown() throws InterruptedException {
+        //Thread.sleep(5000);
+        wait.until(ExpectedConditions.elementToBeClickable(taskSourceDropdown)).click();
+        //((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)",taskDropdownElement);
+        //Thread.sleep(5000);
+        //((JavascriptExecutor) driver).executeScript("arguments[0].click()",taskDropdownElement);
+        //taskDropdownElement.click();
+        WebElement taskSourceList = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class,'ng-option') and contains(text(),'Shri')]")));
+        taskSourceList.click();
+        System.out.println("second option clicked");
     }
 
     public void clickOnTaskStatusDropdown(String status) {

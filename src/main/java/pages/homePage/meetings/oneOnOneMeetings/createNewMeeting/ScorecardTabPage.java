@@ -1,12 +1,10 @@
 package pages.homePage.meetings.oneOnOneMeetings.createNewMeeting;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 public class ScorecardTabPage {
@@ -63,6 +61,7 @@ public class ScorecardTabPage {
     }
 
     public void clickOndateRangeDropdown(String optionText) {
+        //wait.until(ExpectedConditions.elementToBeClickable(dateRangeDropdown)).click();
         wait.until(ExpectedConditions.elementToBeClickable(dateRangeDropdown)).click();
         // Wait for the dropdown to expand
         WebElement expandedDropdown = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@aria-expanded='true']")));
@@ -87,18 +86,15 @@ public class ScorecardTabPage {
             e.printStackTrace();
         }
     }
-
-    public void setSelectMonthDropdown(String month) {
+    public void setSelectMonthDropdown(String month){
         wait.until(ExpectedConditions.elementToBeClickable(selectMonthDropdown)).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[title='" + month + "']"))).click();
     }
-
-    public void setSelectYearDropdown(String year) {
+    public void setSelectYearDropdown(String year){
         wait.until(ExpectedConditions.elementToBeClickable(selectYearDropdown)).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[title='" + year + "']"))).click();
     }
-
-    public void setClickOnApply() {
+    public void setClickOnApply(){
         wait.until(ExpectedConditions.elementToBeClickable(clickOnApply)).click();
     }
 }

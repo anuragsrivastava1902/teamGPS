@@ -19,11 +19,11 @@ public class CreateTasksFlyoutPage {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    By taskName = By.xpath("//input[@placeholder='Write task name*']");
-    By taskAssignee = By.xpath("//div[@class='ng-value-container']");
-    By taskDueDate = By.xpath("//input[@id='startdate']");
-    By taskDescription = By.xpath("//div[@data-placeholder='Write description(optional)']");
-    By saveButton = By.xpath("//button[normalize-space()='Save']");
+    By taskName = By.xpath("//div[2]/app-create-task/div/form/div[2]/input");
+    By taskAssignee = By.xpath("//div[@class='slide-out position_CT']//div[@class='ng-value-container']");
+    By taskDueDate = By.xpath("//div[@class='slide-out position_CT']//input[@id='startdate']");
+    By taskDescription = By.xpath("//div[@class='slide-out position_CT']//div[@data-placeholder='Write description(optional)']");
+    By saveButton = By.xpath("//div[@class='slide-out position_CT']//button[normalize-space()='Save']");
 
     public void enterTaskName(String nameOfTask) {
         //WebElement flyoutFrame = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='slide-out position_CT']")));
@@ -32,8 +32,8 @@ public class CreateTasksFlyoutPage {
     }
 
     public void enterTaskAssignee(String assignee) {
-        wait.until(ExpectedConditions.elementToBeClickable(taskAssignee)).click();
-        WebElement assigneeOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[normalize-space()='" + assignee + "']")));
+        wait.until(ExpectedConditions.elementToBeClickable(taskAssignee)).click(); //div[contains(text(),'Shri')]
+        WebElement assigneeOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='slide-out position_CT']//div[contains(text(),'" + assignee + "')]")));
         assigneeOption.click();
     }
 

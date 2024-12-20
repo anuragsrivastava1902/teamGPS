@@ -1,6 +1,7 @@
 package pages.homePage.meetings.oneOnOneMeetings.createNewMeeting;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -21,7 +22,7 @@ public class EditMeetingPage {
     }
 
     // Locators
-    // We have to take considerations of the scenario, where the meeting being
+    // We have to also take considerations of the scenario, where the meeting being
     // created is not between the employee and his manager
     By meetingTitle = By.xpath("//input[@class='ng-pristine ng-valid ng-touched']");
 
@@ -40,8 +41,9 @@ public class EditMeetingPage {
     By repeatPatternButton = By.cssSelector(".timeDiv.pointer");
 
     By saveAndSendUpdateButton = By.xpath("//button[normalize-space()='Save & Send Update']");
-    By addToCalendarSkipbutton = By.xpath("//button[normalize-space()='Skip']");
-    By addToCalendarButton = By.xpath("//button[normalize-space()='Add to Calendar']");
+    By saveButton = By.xpath("//div[@class='meet-button ng-star-inserted']//button[contains(text(),'Save')]");
+    By calendarSkipButton = By.xpath("//div[@class='modal-content']//button[contains(text(),'Skip')]");
+    By addToCalendarButton = By.xpath("//div[@class='modal-content']//button[contains(text(),'Add to Calendar')]");
 
     // Action methods
 
@@ -62,11 +64,15 @@ public class EditMeetingPage {
     }
 
     public void clickOnScorecardTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(scorecardTab)).click();
+        WebElement scorecardTabElement = wait.until(ExpectedConditions.elementToBeClickable(scorecardTab));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", scorecardTabElement);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", scorecardTabElement);
     }
 
     public void clickOnActivityTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(activityTab)).click();
+        WebElement activityTabElement = wait.until(ExpectedConditions.elementToBeClickable(activityTab));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", activityTabElement);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", activityTabElement);
     }
 
     public void clickOnRepeatPatternButton() {
@@ -74,7 +80,9 @@ public class EditMeetingPage {
     }
 
     public void clickOnGoalsTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(goalsTab)).click();
+        WebElement goalsTabElement = wait.until(ExpectedConditions.elementToBeClickable(goalsTab));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", goalsTabElement);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", goalsTabElement);
     }
 
     public void clickOnCreateTaskButton() {
@@ -85,7 +93,7 @@ public class EditMeetingPage {
 
     public void clickSaveAndSendUpdateButton() {
         try {
-            WebElement saveButton = wait.until(ExpectedConditions.visibilityOfElementLocated(saveAndSendUpdateButton));
+            WebElement saveButton = wait.until(ExpectedConditions.elementToBeClickable(saveAndSendUpdateButton));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveButton);
         } catch (NoSuchElementException e) {
             System.out.println("Save and Send Update Button not found: " + e.getMessage());
@@ -94,20 +102,36 @@ public class EditMeetingPage {
         }
     }
 
+    public void clickOnSaveButton() {
+            //wait.until(ExpectedConditions.invisibilityOfElementLocated(By.cssSelector(".modal-body")));
+            WebElement saveButtonElement = wait.until(ExpectedConditions.elementToBeClickable(saveButton));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", saveButtonElement);
+            //saveButtonElement.click();
+            System.out.println("save button clicked");
+    }
+
     public void clickAddToCalendarButton() {
-        WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-body']")));
-        // Locate the "Add to Calendar" button within the modal
-        WebElement addButton = modal.findElement(addToCalendarButton);
+        WebElement addButton = wait.until(ExpectedConditions.elementToBeClickable(addToCalendarButton));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", addButton);
     }
 
     public void clickSkipCalendarButton() {
-        WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-body']")));
+        //WebElement modal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='modal-body']")));
         // Locate the "skip" button within the modal
-        WebElement skipButton = modal.findElement(addToCalendarSkipbutton);
+        WebElement skipButton = wait.until(ExpectedConditions.visibilityOfElementLocated(calendarSkipButton));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].click();", skipButton);
     }
 
+    public void showPreviousMeetings() throws InterruptedException {
+        WebElement previousMeetings = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(),'Previous Meetings')]")));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);",previousMeetings);
+        Thread.sleep(5000);
+        //Extra steps (need to move to some other method)
+        List<WebElement> previousMeetingList = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//button[contains(@class,'accordion-toggle')]")));
+        for (WebElement meet : previousMeetingList) {
+            System.out.println(meet.getText());
+        }
+    }
 }

@@ -22,7 +22,7 @@ public class MeetingSurveyTabPage {
     By surveyTemplateSearch = By.xpath("//input[@placeholder='Search']");
     By surveyTemplateCard = By.xpath("(//div[@class='card'])[2]");
     By meetingPreviewButton = By.xpath("//div[@class='container scrollClass']//div[2]//div[1]//div[1]//div[2]//div[1]//button[1]");
-    By useTemplateButton = By.xpath("(//button[contains(text(),'Use Template')])[2]");
+    By useTemplateButton = By.xpath("((//div[@class='card'])[2]//button[contains(text(),'Use Template')])");
 
     public void clickOnAssignSurveyButton() {
         wait.until(ExpectedConditions.elementToBeClickable(assignSurveyButton)).click();
@@ -46,11 +46,12 @@ public class MeetingSurveyTabPage {
     }
 
     public void clickOnUseTemplate() {
-        wait.until(ExpectedConditions.elementToBeClickable(assignSurveyButton)).click();
-        driver.switchTo().activeElement();
+        //wait.until(ExpectedConditions.elementToBeClickable(assignSurveyButton)).click();
+        //driver.switchTo().activeElement();
         WebElement card = wait.until(ExpectedConditions.elementToBeClickable(surveyTemplateCard));
         Actions actions = new Actions(driver);
         actions.moveToElement(card).perform();
         wait.until(ExpectedConditions.elementToBeClickable(useTemplateButton)).click();
+        System.out.println("button clicked");
     }
 }

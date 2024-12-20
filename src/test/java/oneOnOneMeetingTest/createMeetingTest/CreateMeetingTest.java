@@ -1,6 +1,7 @@
 package oneOnOneMeetingTest.createMeetingTest;
 
 import baseTest.BaseTest;
+import baseTest.HeadlessBaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -16,7 +17,7 @@ import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.SelectTemplateP
 
 import java.time.Duration;
 
-public class CreateMeetingTest extends BaseTest {
+public class CreateMeetingTest extends HeadlessBaseTest {
 
     private static final String MEETING_RECIPIENT = "Shri";
     private static final String MEETING_TITLE = "1:1 meeting with Shri 2nd";
@@ -99,6 +100,4 @@ public class CreateMeetingTest extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/app-root/div/div/div/div/div/app-meetings/div/div/div[1]/div/div")));
         Assert.assertTrue(meetingListingPage.isMeetingDisplayed(MEETING_TITLE), "Meeting was not created successfully.");
     }
-
-
 }

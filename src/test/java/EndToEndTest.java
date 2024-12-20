@@ -78,8 +78,8 @@ public class EndToEndTest extends BaseTest {
 //		meetingSurveyTabPage.clickOnMeetingTemplatePreview();
 		//meetingSurveyTabPage.clickOnUseTemplate();
 
-		GoalsTabPage goalsTabPage = new GoalsTabPage(driver);
-		goalsTabPage.clickSearchIcon();
+		//GoalsTabPage goalsTabPage = new GoalsTabPage(driver);
+		//goalsTabPage.clickSearchIcon();
 
 //		SurveyPreviewPage surveyPreviewPage = new SurveyPreviewPage(driver);
 //		surveyPreviewPage.clickOnCloseButton();
