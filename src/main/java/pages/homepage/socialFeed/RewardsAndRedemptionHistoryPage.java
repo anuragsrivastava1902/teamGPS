@@ -47,7 +47,4 @@ public class RewardsAndRedemptionHistoryPage {
     public void selectGiftCardRadioButton() {
         wait.until(ExpectedConditions.elementToBeClickable(giftCardRadioButton)).click();
     }
-
-
-
 }
