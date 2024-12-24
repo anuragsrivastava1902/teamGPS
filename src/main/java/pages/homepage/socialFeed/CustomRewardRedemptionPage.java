@@ -23,24 +23,26 @@ public class CustomRewardRedemptionPage {
     By customRewardsRedeemButton = By.xpath("//div[contains(@class,'reward-box')]//button");
 
 
-    public void enterRewardNameToSearch(String rewardName) {
+    /*public void enterRewardNameToSearch(String rewardName) {
         wait.until(ExpectedConditions.elementToBeClickable(rewardNameSearchBox)).sendKeys(rewardName);
-    }
+    }*/
 
-    public void clickOnSearchButton() throws InterruptedException {
+    public void clickOnSearchButton(String rewardName) throws InterruptedException {
+        //Enter the name of the reward you want to search
+        wait.until(ExpectedConditions.elementToBeClickable(rewardNameSearchBox)).sendKeys(rewardName);
         //click on the search button to search the custom reward
         wait.until(ExpectedConditions.elementToBeClickable(searchButton)).click();
         try {
-            Thread.sleep(3000);
             //scroll down the window by 300px down so that the custom reward is completely in the viewport
             ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,300);");
-            WebElement noRewardFound = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".text-center")));
-            if (noRewardFound.isDisplayed()) {
-                System.out.println("NO reward found");
-            } else System.out.println("YES. reward found with this name");
+            WebElement customRewardBoxElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".reward-box")));
+            if (customRewardBoxElement.isDisplayed()) {
+                System.out.println(customRewardBoxElement.isDisplayed());
+                System.out.println("reward found");
+                clickOnCustomRewardRedeemButton();
+            } else System.out.println("NO Reward found");
         } catch (Exception e) {
-            System.out.println("reward found, hence this exception is thrown");
-            clickOnCustomRewardRedeemButton();
+            System.out.println("no reward found: " + e);
         }
     }
 

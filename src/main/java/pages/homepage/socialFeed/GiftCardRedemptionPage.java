@@ -23,8 +23,12 @@ public class GiftCardRedemptionPage {
 
     public void clickOnPointsToRedeemDropdown(String pointsToRedeem) {
         wait.until(ExpectedConditions.elementToBeClickable(selectPointsDropdown)).click();
-        //select the option from the dropdown based on the value provided
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'("+pointsToRedeem+" points)')]"))).click();
+        try {
+            //select the option from the dropdown based on the value provided
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[contains(text(),'("+pointsToRedeem+" points)')]"))).click();
+        } catch (Exception e) {
+            System.out.println("not enough points in the points to redeem");
+        }
     }
 
     public void clickOnGiftCardRedeemButton(){
