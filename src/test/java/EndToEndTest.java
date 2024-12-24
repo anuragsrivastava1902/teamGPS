@@ -1,11 +1,10 @@
-import baseTest.BaseTest;
+import basetest.BaseTest;
 import org.testng.annotations.Test;
-import pages.homePage.HomePage;
-import pages.homePage.meetings.oneOnOneMeetings.MeetingListingPage;
-import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.CreateEventPage;
-import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.EditMeetingPage;
-import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.GoalsTabPage;
-import pages.homePage.meetings.oneOnOneMeetings.createNewMeeting.SelectTemplatePage;
+import pages.homepage.HomePage;
+import pages.homepage.meetings.oneononemeetings.MeetingListingPage;
+import pages.homepage.meetings.oneononemeetings.createnewmeeting.CreateEventPage;
+import pages.homepage.meetings.oneononemeetings.createnewmeeting.EditMeetingPage;
+import pages.homepage.meetings.oneononemeetings.createnewmeeting.SelectTemplatePage;
 import pages.loginPage.LoginPage;
 
 public class EndToEndTest extends BaseTest {
@@ -78,8 +77,8 @@ public class EndToEndTest extends BaseTest {
 //		meetingSurveyTabPage.clickOnMeetingTemplatePreview();
 		//meetingSurveyTabPage.clickOnUseTemplate();
 
-		GoalsTabPage goalsTabPage = new GoalsTabPage(driver);
-		goalsTabPage.clickSearchIcon();
+		//GoalsTabPage goalsTabPage = new GoalsTabPage(driver);
+		//goalsTabPage.clickSearchIcon();
 
 //		SurveyPreviewPage surveyPreviewPage = new SurveyPreviewPage(driver);
 //		surveyPreviewPage.clickOnCloseButton();
