@@ -1,8 +1,6 @@
 package socialfeedtest;
 
 import basetest.BaseTest;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,10 +8,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import pages.homepage.HomePage;
-import pages.homepage.socialFeed.CustomRewardRedemptionPage;
-import pages.homepage.socialFeed.GiftCardRedemptionPage;
-import pages.homepage.socialFeed.RewardsAndRedemptionHistoryPage;
-import pages.homepage.socialFeed.SocialFeedPage;
+import pages.homepage.socialfeed.CustomRewardRedemptionPage;
+import pages.homepage.socialfeed.RewardsAndRedemptionHistoryPage;
+import pages.homepage.socialfeed.SocialFeedPage;
 import pages.loginPage.LoginPage;
 
 import java.time.Duration;
@@ -41,12 +38,12 @@ public class CustomRewardRedemptionTest extends BaseTest {
         rewardsAndRedemptionHistoryPage.selectCustomRewardRadioButton();
 
         CustomRewardRedemptionPage customRewardRedemptionPage = new CustomRewardRedemptionPage(driver);
-        //customRewardRedemptionPage.enterRewardNameToSearch("Pickelbally");
-        customRewardRedemptionPage.clickOnSearchButton("Pickelball");
+        //positive test case to find the existing custom reward
+        customRewardRedemptionPage.enterRewardNameAndSearch("Pickelball");
     }
 
 
-    @Test(priority = 2,enabled = false)
+    @Test(priority = 2)
     public void testCustomRewardRedemptionForPhilippines() throws InterruptedException {
         driver.get("https://itbd-stage-frontend.team-gps.net/login");
         LoginPage loginPage = new LoginPage(driver);
@@ -61,11 +58,10 @@ public class CustomRewardRedemptionTest extends BaseTest {
         rewardsAndRedemptionHistoryPage.selectCustomRewardRadioButton();
 
         CustomRewardRedemptionPage customRewardRedemptionPage = new CustomRewardRedemptionPage(driver);
-//        customRewardRedemptionPage.enterRewardNameToSearch("Pickelball");
-//        customRewardRedemptionPage.clickOnSearchButton();
+        customRewardRedemptionPage.enterRewardNameAndSearch("Pickelball");
     }
 
-    @Test(priority = 3,enabled = false)
+    @Test(priority = 3)
     public void testCustomRewardRedemptionForIndia() throws InterruptedException {
         driver.get("https://itbd-stage-frontend.team-gps.net/login");
         LoginPage loginPage = new LoginPage(driver);
@@ -79,8 +75,7 @@ public class CustomRewardRedemptionTest extends BaseTest {
         rewardsAndRedemptionHistoryPage.selectCustomRewardRadioButton();
 
         CustomRewardRedemptionPage customRewardRedemptionPage = new CustomRewardRedemptionPage(driver);
-//        customRewardRedemptionPage.enterRewardNameToSearch("Pickelball");
-//        customRewardRedemptionPage.clickOnSearchButton();
+        customRewardRedemptionPage.enterRewardNameAndSearch("Pickelball");
     }
 
 

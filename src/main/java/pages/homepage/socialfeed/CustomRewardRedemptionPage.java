@@ -1,4 +1,4 @@
-package pages.homepage.socialFeed;
+package pages.homepage.socialfeed;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -27,15 +27,16 @@ public class CustomRewardRedemptionPage {
         wait.until(ExpectedConditions.elementToBeClickable(rewardNameSearchBox)).sendKeys(rewardName);
     }*/
 
-    public void clickOnSearchButton(String rewardName) throws InterruptedException {
+    public void enterRewardNameAndSearch(String rewardName) throws InterruptedException {
         //Enter the name of the reward you want to search
         wait.until(ExpectedConditions.elementToBeClickable(rewardNameSearchBox)).sendKeys(rewardName);
         //click on the search button to search the custom reward
         wait.until(ExpectedConditions.elementToBeClickable(searchButton)).click();
         try {
+            Thread.sleep(1000);
             //scroll down the window by 300px down so that the custom reward is completely in the viewport
             ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,300);");
-            WebElement customRewardBoxElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".reward-box")));
+            WebElement customRewardBoxElement = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".reward-box")));
             if (customRewardBoxElement.isDisplayed()) {
                 System.out.println(customRewardBoxElement.isDisplayed());
                 System.out.println("reward found");
@@ -46,6 +47,7 @@ public class CustomRewardRedemptionPage {
         }
     }
 
+    //this method is kept private because it is internally called by another method
     private void clickOnCustomRewardRedeemButton() throws InterruptedException {
         WebElement redeemButtonElement = wait.until(ExpectedConditions.elementToBeClickable(customRewardsRedeemButton));
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true)",redeemButtonElement);

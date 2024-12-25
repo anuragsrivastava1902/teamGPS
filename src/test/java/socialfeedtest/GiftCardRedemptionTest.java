@@ -1,7 +1,6 @@
 package socialfeedtest;
 
 import basetest.BaseTest;
-import com.google.j2objc.annotations.Weak;
 import io.restassured.response.Response;
 import io.restassured.RestAssured;
 import org.openqa.selenium.By;
@@ -11,9 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import pages.homepage.HomePage;
-import pages.homepage.socialFeed.GiftCardRedemptionPage;
-import pages.homepage.socialFeed.RewardsAndRedemptionHistoryPage;
-import pages.homepage.socialFeed.SocialFeedPage;
+import pages.homepage.socialfeed.GiftCardRedemptionPage;
+import pages.homepage.socialfeed.RewardsAndRedemptionHistoryPage;
+import pages.homepage.socialfeed.SocialFeedPage;
 import pages.loginPage.LoginPage;
 
 import java.time.Duration;

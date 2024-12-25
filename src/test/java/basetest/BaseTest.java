@@ -34,4 +34,13 @@ public class BaseTest {
             driver.quit();
         }
     }
+
+    @DataProvider(name = "userData")
+    public Object[][] provideUserData() {
+        return new Object[][] {
+                { "lucas.sarzo@yopmail.com", "John@123" }, //correct details
+                { "shri.yanshraj@yopmail.com", "John@123" }, //correct details
+                {"shri.yanshraj@yopmail.com","12345678"} //incorrect password
+        };
+    }
 }
