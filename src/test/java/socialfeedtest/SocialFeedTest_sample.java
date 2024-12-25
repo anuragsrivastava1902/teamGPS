@@ -3,7 +3,7 @@ package socialfeedtest;
 import basetest.BaseTest;
 import org.testng.annotations.Test;
 import pages.homepage.HomePage;
-import pages.homepage.socialFeed.*;
+import pages.homepage.socialfeed.*;
 
 public class SocialFeedTest_sample extends BaseTest {
 

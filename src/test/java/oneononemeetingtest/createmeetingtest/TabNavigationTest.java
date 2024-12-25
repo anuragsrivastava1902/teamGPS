@@ -1,6 +1,8 @@
 package oneononemeetingtest.createmeetingtest;
 
 import basetest.BaseTest;
+import org.openqa.selenium.JavascriptExecutor;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.homepage.HomePage;
@@ -12,7 +14,7 @@ public class TabNavigationTest extends BaseTest {
     private static final String MEETING_TITLE = "1:1 meeting with Shri 2nd";
 
     @BeforeClass
-    public void createMeeting(){
+    public void createMeeting() {
         HomePage homePage = new HomePage(driver);
         homePage.clickOnMeetings();
         homePage.clickOnOneOnOneMeetings();
@@ -27,6 +29,11 @@ public class TabNavigationTest extends BaseTest {
         selectTemplatePage.clickSaveAndNextButton();
     }
 
+    @AfterMethod
+    public void scrollPageToTop(){
+        ((JavascriptExecutor)driver).executeScript("window.scrollTo(0, 0);");
+    }
+
     @Test(priority = 0)
     public void testMeetingSurveyTabNavigation() throws InterruptedException {
         EditMeetingPage editMeetingPage = new EditMeetingPage(driver);
@@ -36,7 +43,7 @@ public class TabNavigationTest extends BaseTest {
     }
 
     @Test(priority = 1)
-    public void testAssigningTheMeetingSurvey(){
+    public void testAssigningTheMeetingSurvey() {
         MeetingSurveyTabPage meetingSurveyTabPage = new MeetingSurveyTabPage(driver);
         meetingSurveyTabPage.clickOnAssignSurveyButton();
         meetingSurveyTabPage.clickOnUseTemplate();
@@ -64,14 +71,16 @@ public class TabNavigationTest extends BaseTest {
         Thread.sleep(6000);
     }
 
-    @Test(priority = 21)
+    /* there is some issue in this test, when we click on task tab directly from the agenda tab, it doesn't show the
+    attendee's task in the dropdown for the task source, showing the element not found exception.*/
+    @Test(priority = 21, dependsOnMethods = {"testTasksTabNavigation"})
     public void testTaskSourceDropdown() throws InterruptedException {
         TasksTabPage tasksTabPage = new TasksTabPage(driver);
         tasksTabPage.clickOnTaskSourceDropdown();
     }
 
-    @Test(priority = 22)
-    public void testTaskCreation(){
+    @Test(priority = 22, dependsOnMethods = {"testTasksTabNavigation"})
+    public void testTaskCreation() {
         TasksTabPage tasksTabPage = new TasksTabPage(driver);
         tasksTabPage.clickOnCrateTaskButton();
         CreateTasksFlyoutPage createTasksFlyoutPage = new CreateTasksFlyoutPage(driver);

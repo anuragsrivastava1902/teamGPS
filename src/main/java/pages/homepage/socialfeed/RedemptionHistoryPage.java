@@ -1,4 +1,4 @@
-package pages.homepage.socialFeed;
+package pages.homepage.socialfeed;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -63,10 +63,10 @@ public class RedemptionHistoryPage {
         actions.sendKeys(Keys.RETURN).perform();
     }
 
-    public void clickOnDeductionTypeDropdown(){
+    public void clickOnDeductionTypeDropdown(int index){
         WebElement dropdownElement = wait.until(ExpectedConditions.elementToBeClickable(deductionTypeDropdown));
         Select select = new Select(dropdownElement);
-        select.selectByIndex(2);
+        select.selectByIndex(index);
         System.out.println("clicked on the dropdown");
     }
 

@@ -1,4 +1,4 @@
-package pages.homepage.socialFeed;
+package pages.homepage.socialfeed;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -47,7 +47,4 @@ public class RewardsAndRedemptionHistoryPage {
     public void selectGiftCardRadioButton() {
         wait.until(ExpectedConditions.elementToBeClickable(giftCardRadioButton)).click();
     }
-
-
-
 }

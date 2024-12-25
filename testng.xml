@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-  <test name="Test">
+  <test name="OneOnOneMeetingTest">
     <classes>
-      <!--<class name="oneononemeetingtest.createmeetingtest.OneOnActivityTest"/>
+      <class name="oneononemeetingtest.createmeetingtest.OneOnActivityTest"/>
       <class name="oneononemeetingtest.createmeetingtest.CreateMeetingTest"/>
       <class name="oneononemeetingtest.createmeetingtest.CreateMeetingRecurringTest"/>
-      <class name="oneononemeetingtest.createmeetingtest.TabNavigationTest"/>-->
+      <class name="oneononemeetingtest.createmeetingtest.TabNavigationTest">
+       <!-- <methods>
+          <include name="testScorecareTabNavigation"/>
+          <include name="testTasksTabNavigation"/>
+          <include name="testTaskSourceDropdown"/>
+        </methods>-->
+      </class>
       <class name="oneononemeetingtest.createmeetingtest.OneOnScorecardTest"/>
     </classes>
   </test> <!-- Test -->
+
+  <test name="SocialFeedTest">
+    <classes>
+      <class name="oneononemeetingtest.createmeetingtest.TabNavigationTest"/>
+    </classes>
+  </test>
 </suite> <!-- Suite -->
+
+

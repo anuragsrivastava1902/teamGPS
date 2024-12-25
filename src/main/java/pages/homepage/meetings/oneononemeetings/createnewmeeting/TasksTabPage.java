@@ -41,15 +41,16 @@ public class TasksTabPage {
     }
 
     public void clickOnTaskSourceDropdown() throws InterruptedException {
-        //Thread.sleep(5000);
-        wait.until(ExpectedConditions.elementToBeClickable(taskSourceDropdown)).click();
-        //((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)",taskDropdownElement);
-        //Thread.sleep(5000);
-        //((JavascriptExecutor) driver).executeScript("arguments[0].click()",taskDropdownElement);
-        //taskDropdownElement.click();
-        WebElement taskSourceList = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@class,'ng-option') and contains(text(),'Shri')]")));
-        taskSourceList.click();
-        System.out.println("second option clicked");
+        WebElement dropdownElement = wait.until(ExpectedConditions.elementToBeClickable(taskSourceDropdown));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click()",dropdownElement);
+        //Thread.sleep(100000);
+        System.out.println("dropdown clicked");
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[.=\"Shri's Task\"]"))).click();
+            System.out.println("second option clicked");
+        } catch (Exception e) {
+            throw new RuntimeException("task source not visible yet. " + e);
+        }
     }
 
     public void clickOnTaskStatusDropdown(String status) {
