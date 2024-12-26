@@ -1,9 +1,6 @@
 package pages.homepage.socialfeed;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -46,8 +43,10 @@ public class SocialFeedPage {
     By socialFeedSubmit = By.cssSelector("button[type='submit']");
     By submitComment = By.cssSelector("div[class='create-feed-layout comment-card-div ng-star-inserted'] button[class='btn btn-primary']");
 
-    public void clickOnAddPointsIcon() {
-        wait.until(ExpectedConditions.elementToBeClickable(addPointsIcon)).click();
+    public void clickOnAddPointsIcon() throws InterruptedException {
+       WebElement addpoint =  wait.until(ExpectedConditions.elementToBeClickable(addPointsIcon));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].click()",addpoint);
+
         wait.until(ExpectedConditions.elementToBeClickable(specificOption)).click();
     }
 
@@ -148,8 +147,6 @@ public class SocialFeedPage {
         // Click on the <span> element that contains the image
         iconContainer.click();
     }
-
-
     public void uploadFile() {
         String filePath = "C:\\Users\\hp\\Pictures\\test.jpg"; // File path
         String autoITExe = "C:\\Users\\hp\\Desktop\\FileUpload.exe"; // Path to AutoIt executable
@@ -165,37 +162,51 @@ public class SocialFeedPage {
             e.printStackTrace();
         }
     }
-
-
     public void clickGiveShoutoutsbutton() {
         wait.until(ExpectedConditions.elementToBeClickable(giveShoutoutButton)).click();
     }
-
     public void clickAllShoutoutsDropown(String optionTitle) {
         wait.until(ExpectedConditions.elementToBeClickable(allShoutoutsDropown)).click();
 
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div[title='" + optionTitle + "']")));
         option.click();
     }
-
     public void clickDepartmentsDropdown(String optionTitle) {
         wait.until(ExpectedConditions.elementToBeClickable(departmentsDropdown)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("ng-dropdown-panel[role='listbox']")));
-
         // Select the option using a dynamic CSS selector
         WebElement option = wait.until(ExpectedConditions.elementToBeClickable(
                 By.cssSelector("div.ng-option span.ng-option-label")
         ));
-
-
         // Click on the selected option
         option.click();
     }
 
-    public void giveReactiontoShoutout() {
+    public void giveReactionToShoutout(String emojiAriaLabel) {
+    try {
+        // Step 1: Open the emoji selection section
         wait.until(ExpectedConditions.elementToBeClickable(addReactiontoShoutout)).click();
+        System.out.println("Opened the emoji selection section.");
 
+        // Step 2: Wait for the emoji picker to be visible
+        WebElement emojiSection = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("section[aria-label='Frequently Used']")));
+        System.out.println("Emoji selection section is visible.");
+        WebElement emoji = emojiSection.findElement(By.cssSelector(
+                String.format("span[aria-label='%s'] span", emojiAriaLabel)
+        ));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'center'});", emoji);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", emoji);
+        System.out.println("Selected the emoji: " + emojiAriaLabel);
+
+    } catch (NoSuchElementException e) {
+        System.err.println("Emoji not found: " + emojiAriaLabel);
+    } catch (TimeoutException e) {
+        System.err.println("Timeout while waiting for emoji picker or emoji: " + emojiAriaLabel);
+    } catch (Exception e) {
+        System.err.println("Unexpected error: " + e.getMessage());
     }
+}
+
 
     public void clickEditShoutout() {
         wait.until(ExpectedConditions.elementToBeClickable(editShoutout)).click();
@@ -207,6 +218,77 @@ public class SocialFeedPage {
 
     public void clickAddComment() {
         wait.until(ExpectedConditions.elementToBeClickable(addComment)).click();
+    }
+
+    public void writeComment(String commentText) {
+        try {
+            // Assuming the comment box is already focused, directly send the keys to the already-clicked box
+            driver.switchTo().activeElement().sendKeys(commentText);  // Sends the text directly to the focused element
+        } catch (Exception e) {
+            System.err.println("Error while writing comment: " + e.getMessage());
+        }
+        }
+
+    // Tag a user dynamically
+    public void tagUser(String userName) {
+        try {
+            WebElement commentBox = driver.findElement(By.cssSelector("div[contenteditable='true']"));
+            commentBox.sendKeys("@");
+
+            WebElement mentionList = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.cssSelector("ul.dropdown-menu.mention-menu")
+            ));
+
+            WebElement userToTag = mentionList.findElement(By.xpath("//span[text()='" + userName + "']"));
+            userToTag.click();
+        } catch (Exception e) {
+            System.err.println("Error while tagging user: " + e.getMessage());
+        }
+    }
+
+    // Add an emoji dynamically
+    public void addEmoji(String emojiAriaLabel) {
+        try {
+            WebElement emojiButton = driver.findElement(By.cssSelector("div[ngbtooltip='Add an emoji']"));
+            emojiButton.click();
+
+            WebElement emoji = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.cssSelector("span[aria-label='" + emojiAriaLabel + "'] span")
+            ));
+            emoji.click();
+        } catch (Exception e) {
+            System.err.println("Error while adding emoji: " + e.getMessage());
+        }
+    }
+
+    // Upload a file dynamically
+    public void uploadFile(String filePath) {
+        try {
+            WebElement imageUploadInput = driver.findElement(By.id("image_file_input"));
+            imageUploadInput.sendKeys(filePath);
+        } catch (Exception e) {
+            System.err.println("Error while uploading file: " + e.getMessage());
+        }
+    }
+
+    // Submit the comment
+    public void submitComment() {
+        try {
+            WebElement addButton = driver.findElement(By.cssSelector(".feed-btn .btn-primary"));
+            addButton.click();
+        } catch (Exception e) {
+            System.err.println("Error while submitting comment: " + e.getMessage());
+        }
+    }
+
+    // Combine all actions into one reusable method
+    public void addCommentWithDetails(String commentText, String userName, String emojiAriaLabel, String filePath) {
+        clickAddComment(); // Ensure comment box is open
+        writeComment(commentText);
+        tagUser(userName);
+        addEmoji(emojiAriaLabel);
+        uploadFile(filePath);
+        submitComment();
     }
 
     public void clickSocialFeedAction() {
