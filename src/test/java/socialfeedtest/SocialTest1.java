@@ -72,6 +72,67 @@ public class SocialTest1 extends BaseTest {
         socialFeed.clickGiveShoutoutsbutton();
         Thread.sleep(10000);
     }
+    @Test
+    public void invalidcharactercheck() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(5000);
+        socialFeed.charactercheck("3254365475687<?><>?<?><?:<?:<?:<?:<?:<?>:<?:<?:<");
+        Thread.sleep(2000);
+        socialFeed.clickGiveShoutoutsbutton();
+        Thread.sleep(10000);
+    }
+    @Test
+    public void pointallocationlimitcheck() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(5000);
+        socialFeed.charactercheck("+600");
+        socialFeed.clickOnAddEmployee();
+        socialFeed.selectNameFromDropdown("Tanishk Patidar");
+        socialFeed.clickAddHastag();
+        socialFeed.selectTagFromDropdown("#Humility");
+        socialFeed.clickGiveShoutoutsbutton();
+        Thread.sleep(10000);
+    }
+    @Test
+    public void pointallocationcheckmultiplerecipient() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(5000);
+        socialFeed.charactercheck("+600");
+        socialFeed.clickOnAddEmployee();
+        socialFeed.selectNameFromDropdown("Tanishk Patidar");
+        socialFeed.clickOnAddEmployee();
+        socialFeed.selectNameFromDropdown("Anshul Uniyal");
+        socialFeed.clickAddHastag();
+        socialFeed.selectTagFromDropdown("#Humility");
+        socialFeed.clickAddHastag();
+        socialFeed.clickGiveShoutoutsbutton();
+        Thread.sleep(5000);
+
+    }
+
+    @Test
+    public void notabletoshoutoutwithouthastag() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(5000);
+        socialFeed.clickOnAddPointsIcon();
+        socialFeed.clickOnAddEmployee();
+        socialFeed.selectNameFromDropdown("Tanishk Patidar");
+//        socialFeed.clickAddHastag();
+//        socialFeed.selectTagFromDropdown("#Humility");
+        socialFeed.clickAddEmoji();
+        socialFeed.selectEmoji("\uD83D\uDE1C");
+        socialFeed.clickAddEmoji();
+        socialFeed.selectEmoji("\uD83D\uDE00");
+        socialFeed.clickAddGif();
+        socialFeed.selectGif(0);
+        socialFeed.clickAddGif();
+        Thread.sleep(2000);
+        socialFeed.selectGif(1);
+        socialFeed.clickGiveShoutoutsbutton();
+        Thread.sleep(10000);
+
+    }
+
 @Test(priority = 2)
     public void shoutoutToMultipleRecipient() throws InterruptedException {
     SocialFeedPage socialFeed= new SocialFeedPage(driver);
@@ -92,6 +153,7 @@ public class SocialTest1 extends BaseTest {
         socialFeed.clickGiveShoutoutsbutton();
         Thread.sleep(10000);
     }
+
     @Test
     public void shoutoutGivenFilterList() throws InterruptedException {
         SocialFeedPage socialFeed= new SocialFeedPage(driver);
@@ -121,32 +183,83 @@ public class SocialTest1 extends BaseTest {
     @Test
     public void addcommenttoshoutout() throws InterruptedException {
         SocialFeedPage socialFeed= new SocialFeedPage(driver);
-        Thread.sleep(5000);
+        Thread.sleep(4000);
         socialFeed.clickAddComment();
-        Thread.sleep(2000); // Optional, but helps with ensuring actions happen in sequence
-
-        // Write a comment
-        socialFeed.writeComment("This is a sample comment!");
-        Thread.sleep(2000); // Optional, helps with timing
+        Thread.sleep(2000);
+        socialFeed.writeComment("Good Job!");
+        Thread.sleep(2000);
+        socialFeed.clickSubmitComment();
+//        socialFeed.submitComment();
 
         // Tag a user in the comment (adjust user name accordingly)
-        String userName = "John Doe";
-        socialFeed.tagUser(userName);
-        Thread.sleep(2000); // Optional, helps with timing
+//        socialFeed.tagUser("Anshul Uniyal");
+//        Thread.sleep(2000); // Optional, helps with timing
+
+//        socialFeed.addpointtocomment();
+//        Thread.sleep(4000);
+
+//        socialFeed.addinghastagtocomment();
+//        socialFeed.selectTagFromDropdown("#Humility");
+//        Thread.sleep(4000);
+
 
         // Add an emoji to the comment (adjust emoji label accordingly)
-        String emojiAriaLabel = "😀, grinning";
-        socialFeed.addEmoji(emojiAriaLabel);
-        Thread.sleep(2000); // Optional, helps with timing
+//        socialFeed.addingEmojiToComment("smile");
+//        Thread.sleep(2000); // Optional, helps with timing
 
         // Upload a file if needed (adjust file path accordingly)
-        String filePath = "C:\\path\\to\\your\\image.jpg";
-        socialFeed.uploadFile(filePath);
-        Thread.sleep(2000); // Optional, helps with timing
+//        String filePath = "C:\\path\\to\\your\\image.jpg";
+//        socialFeed.uploadFile(filePath);
+//        Thread.sleep(2000);
 
         // Submit the comment
 //        socialFeed.submitComment();
         Thread.sleep(5000);
     }
+    @Test
+    public void deletecomment() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(4000);
+        socialFeed.deletecommentstoshoutout();
+        Thread.sleep(3000);
+    }
+    @Test
+    public void pointsthroughcommentsinshoutout() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(4000);
+        socialFeed.clickAddComment();
+        Thread.sleep(1000);
+        socialFeed.addpointtocomment();
+        Thread.sleep(4000);
+        socialFeed.addinghastagtocomment();
+        socialFeed.selectTagFromDropdown("#Humility");
+        Thread.sleep(4000);
+        socialFeed.clickSubmitComment();
+        Thread.sleep(4000);
+    }
+    @Test
+    public void shoutoutdelete() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(5000);
+        socialFeed.shoutoutsdelete();
+        Thread.sleep(4000);
+    }
+//    @Test
+//    public void deleteshoutoutolderthansevenhours() throws InterruptedException {
+//        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+//        Thread.sleep(5000);
+//        socialFeed.deleteShoutoutIfOlderThan7Hours("2 days ago", shoutoutDeleteButton);
+//
+//
+//    }
+    @Test
+    public void scrollthroguhlist() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(5000);
+        socialFeed.scrollToEndOfPage();
+        Thread.sleep(4000);
+    }
 
-}
+    }
+
+
