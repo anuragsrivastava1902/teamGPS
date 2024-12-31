@@ -6,8 +6,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class SocialFeedPage {
@@ -48,8 +46,10 @@ public class SocialFeedPage {
     By socialFeedSubmit = By.cssSelector("button[type='submit']");
     By deletecommenttoshoutout = By.cssSelector(".px-1.feed-delete");
     By submitcomment = By.xpath("//button[normalize-space()='Add']");
-    By shoutoutdelete = By.cssSelector("div[class='feed-list-card feedListDiv4885'] div[class='d-flex'] div[class='feed-detail-row'] div[class='feed-detail-header'] div img[alt='edit-icon']");
+    By shoutoutdelete = By.xpath("(//img[@alt='edit-icon'])[1]");
     By textvalidationcheck = By.xpath("//textarea[@id='createFeedDiv']");
+    By removereactiontoshoutut = By.xpath("//div[@class='reaction-list-col']");
+//    By shoutoutcardlist = By.cssSelector("div.feed-list-card");
 
     public void clickOnAddPointsIcon() throws InterruptedException {
         WebElement addpoint = wait.until(ExpectedConditions.elementToBeClickable(addPointsIcon));
@@ -218,6 +218,9 @@ public class SocialFeedPage {
             System.err.println("Unexpected error: " + e.getMessage());
         }
     }
+    public void Removereactiontoshoutut(){
+        wait.until(ExpectedConditions.elementToBeClickable(removereactiontoshoutut)).click();
+    }
 
 
     public void clickEditShoutout() {
@@ -370,30 +373,57 @@ public class SocialFeedPage {
         yesbutton.click();
     }
 
-//    public void scrollToCardFeed() {
-//        try {
-//            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(cardfeedscroll));
-//            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'center'});", element);
-//        } catch (Exception e) {
-//            System.err.println("Error while scrolling to the card feed: " + e.getMessage());
-//        }
-//    }
+    public void deleteShoutoutsOlderThan7Hours() {
+        // Get all the shoutout cards
+        List<WebElement> shoutouts = driver.findElements(By.cssSelector("div.feed-list-card"));
 
-    //public void scrollToCardFeed() {
-//    try {
-//        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(cardfeedscroll));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", element);
-//    } catch (Exception e) {
-//        System.err.println("Error while scrolling to the end: " + e.getMessage());
-//    }
-//}
-    public void scrollToPageBottom() {
-        try {
-            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight);");
-        } catch (Exception e) {
-            System.err.println("Error while scrolling to the bottom of the page: " + e.getMessage());
+        // Loop through each shoutout card
+        for (WebElement shoutout : shoutouts) {
+            try {
+                // Wait for the time element to be visible and get its text
+                WebElement timeElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.feed-time.ng-star-inserted")));
+                String timeText = timeElement.getText();
+
+                // Print the time text to debug
+                System.out.println("Shoutout time: " + timeText);
+
+                // Parse the time text to check if it's older than 7 hours
+                if (isOlderThan7Hours(timeText)) {
+                    // Find the delete button for this shoutout
+//                    WebElement deleteButton = shoutout.findElement(By.cssSelector("div.feed-detail-row div.feed-detail-header div img[alt='edit-icon']"));
+//
+//                    // Wait until the delete button is clickable and click it to open the dropdown menu
+//                    wait.until(ExpectedConditions.elementToBeClickable(deleteButton)).click();
+
+                    // Call shoutoutsdelete() to perform the deletion
+                    shoutoutsdelete();
+
+                    System.out.println("Shoutout deleted successfully: " + shoutout.getText());
+                }
+            } catch (Exception e) {
+                System.out.println("Error processing shoutout: " + e.getMessage());
+            }
         }
     }
+
+    // Helper method to check if the shoutout is older than 7 hours
+    public boolean isOlderThan7Hours(String timeText) {
+        if (timeText.contains("day")) {
+            // Extract number of days and check if it's more than 7
+            int days = Integer.parseInt(timeText.split(" ")[0]);
+            return days > 7;
+        }
+
+        // Handle other cases for time (hours, minutes, etc.)
+        if (timeText.contains("hour")) {
+            int hours = Integer.parseInt(timeText.split(" ")[0]);
+            return hours > 7;
+        }
+
+        // Handle other cases like minutes or less than 7 hours
+        return false;
+    }
+
 
     public void scrollToEndOfPage() {
         try {
@@ -434,58 +464,121 @@ public class SocialFeedPage {
         } catch (Exception e) {
             System.err.println("Error while sending text: " + e.getMessage());
         }
-
-
     }
 
-    public void deleteShoutoutIfOlderThan7Hours(WebElement shoutoutTimeElement, WebElement shoutoutDeleteButton) {
-        // Get the timestamp of the shoutout (this should be fetched from the web element)
-        String shoutoutTimeText = shoutoutTimeElement.getText(); // e.g., "2 days ago"
+    By shoutoutcardlist = By.cssSelector("div.feed-list-card");
 
-        // Convert the shoutout time to a LocalDateTime (example: shoutoutTimeText could be "2 days ago")
-        LocalDateTime shoutoutTime = parseShoutoutTime(shoutoutTimeText);
-        LocalDateTime currentTime = LocalDateTime.now();
+//    public List<WebElement> getAllShoutoutCards() {
+//        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoutoutcardlist));
+//        return driver.findElements(shoutoutcardlist);
+//    }
 
-        // Calculate the difference in hours between the current time and the shoutout time
-        long hoursDifference = ChronoUnit.HOURS.between(shoutoutTime, currentTime);
+//    public List<WebElement> getAllShoutoutCards() {
+//        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoutoutcardlist));
+//        List<WebElement> shoutoutCards = driver.findElements(shoutoutcardlist);
+//
+//        int previousCardCount = 0;
+//        int maxScrollAttempts = 10;
+//        int currentScrollAttempts = 0;
+//
+//        while (shoutoutCards.size() > previousCardCount && currentScrollAttempts < maxScrollAttempts) {
+//            previousCardCount = shoutoutCards.size();
+//
+//            // Scroll down to load more cards
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+//
+//            // Wait for new shoutout cards to load
+//            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoutoutcardlist));
+//
+//            // Get the updated list of shoutout cards
+//            shoutoutCards = driver.findElements(shoutoutcardlist);
+//            currentScrollAttempts++;
+//        }
+//
+//        return shoutoutCards;
+//    }
 
-        // Check if the shoutout is older than 7 hours
-        if (hoursDifference > 7) {
-            // Use the already defined shoutoutsdelete() method to delete the shoutout
-            shoutoutsdelete();
+    public List<WebElement> getAllShoutoutCards() {
+        // Wait for the shoutout cards to be visible initially
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoutoutcardlist));
 
-            // Handle the validation message after the shoutout is deleted
-            WebElement validationMessageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='validation-message']")));
-            String validationMessage = validationMessageElement.getText();
+        // Get the initial list of shoutout cards
+        List<WebElement> shoutoutCards = driver.findElements(shoutoutcardlist);
 
-            // Log or assert the validation message for verification
-            System.out.println(validationMessage);  // Example: "Shoutout has been deleted successfully. Points not reverted as seven hours have passed."
+        // Loop to scroll and load cards until no new cards are added
+        int previousCardCount = 0;
+
+        // Continue scrolling until the number of cards stops increasing
+        while (shoutoutCards.size() > previousCardCount) {
+            previousCardCount = shoutoutCards.size();
+
+            // Scroll down to load more cards
+//            JavascriptExecutor js = (JavascriptExecutor) driver;
+//            js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+            scrollToEndOfPage();
+
+            // Wait for new shoutout cards to load
+            wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoutoutcardlist));
+
+            // Get the updated list of shoutout cards
+            shoutoutCards = driver.findElements(shoutoutcardlist);
+
+            // Optional: You can add a timeout or max scroll attempts to prevent infinite loops
+        }
+
+        return shoutoutCards;
+    }
+
+    public WebElement getFirstShoutoutCard() {
+        // Wait for the shoutout cards to be visible initially
+        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(shoutoutcardlist));
+
+        // Get the list of all shoutout cards
+        List<WebElement> shoutoutCards = driver.findElements(shoutoutcardlist);
+
+        // Return the first card if the list is not empty
+        if (!shoutoutCards.isEmpty()) {
+            return shoutoutCards.get(0); // Return the first card
         } else {
-            System.out.println("Shoutout is not older than 7 hours. Deletion not performed.");
+            throw new NoSuchElementException("No shoutout cards found on the page.");
+        }
+    }
+    public boolean verifyShoutoutDetails(String recipientName, String points) {
+        try {
+            // XPath to locate shoutout card with recipient name and points
+            String dynamicLocator = "//div[@class='feed-detail-header' and contains(., '" + recipientName + "') and contains(., '" + points + "')]";
+
+            // Check if the shoutout card is displayed based on the dynamic locator
+            WebElement shoutoutCard = driver.findElement(By.xpath(dynamicLocator));
+            return shoutoutCard.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false; // Shoutout not found
+        }
+    }
+    public boolean verifyShoutoutWithMultipleRecipientsAndPoints(String recipient1, String recipient2, String points) {
+        try {
+            // XPath to locate shoutout card with both recipient names and point value
+            String dynamicLocator = "//div[@class='feed-detail-header' and contains(., '" + recipient1 + "') and contains(., '" + recipient2 + "') and contains(., '" + points + "')]";
+
+            // Find the shoutout card
+            WebElement shoutoutCard = driver.findElement(By.xpath(dynamicLocator));
+
+            // Check if points are displayed and match the expected value
+//            String points = shoutoutCard.findElement(By.xpath(".//span[@class='highlight1']")).getText();
+
+            return shoutoutCard.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false; // Shoutout not found or points not displayed
         }
     }
 
-    private LocalDateTime parseShoutoutTime(String shoutoutTimeText) {
-        // Convert the shoutout time to LocalDateTime, e.g., "2 days ago" -> LocalDateTime
-        // This method should handle different time formats based on the application's response
-        // For now, assuming a simple time difference
-        if (shoutoutTimeText.contains("days ago")) {
-            int days = Integer.parseInt(shoutoutTimeText.split(" ")[0]);
-            return LocalDateTime.now().minusDays(days);
-        } else if (shoutoutTimeText.contains("hours ago")) {
-            int hours = Integer.parseInt(shoutoutTimeText.split(" ")[0]);
-            return LocalDateTime.now().minusHours(hours);
-        } else if (shoutoutTimeText.contains("minutes ago")) {
-            int minutes = Integer.parseInt(shoutoutTimeText.split(" ")[0]);
-            return LocalDateTime.now().minusMinutes(minutes);
-        }
-
-        // Default to current time if parsing fails (this should be extended for other formats)
-        return LocalDateTime.now();
-    }
 
 
-    }
+
+
+
+}
 
 
 

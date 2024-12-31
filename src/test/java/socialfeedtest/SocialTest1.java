@@ -1,10 +1,14 @@
 package socialfeedtest;
 
 import basetest.BaseTest;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.homepage.HomePage;
 import pages.homepage.socialfeed.SocialFeedPage;
+
+import java.util.List;
 
 public class SocialTest1 extends BaseTest {
 
@@ -19,34 +23,12 @@ public class SocialTest1 extends BaseTest {
     HomePage homePage = new HomePage(driver);
     homePage.clickOnSocialFeed();
     SocialFeedPage socialFeed= new SocialFeedPage(driver);
-  Thread.sleep(4000);
-//    socialFeed.clickOnAddPointsIcon();
-//    socialFeed.clickOnAddEmployee();
-//    socialFeed.selectNameFromDropdown("Tanishk Patidar");
-//    socialFeed.clickAddHastag();
-//    socialFeed.selectTagFromDropdown("#Humility");
-//    Thread.sleep(2000);
-//    socialFeed.clickTagUser();
-//    Thread.sleep(2000);
-//    socialFeed.selectNameFromDropdown("Anshul Uniyal");
-//    socialFeed.clickAddEmoji();
-//    socialFeed.selectEmoji("\uD83D\uDE1C");
-//    socialFeed.clickAddEmoji();
-//    socialFeed.selectEmoji("\uD83D\uDE00");
-//    socialFeed.clickAddGif();
-//    Thread.sleep(2000);
-//    socialFeed.searchGif("welcome");
-//    Thread.sleep(1000);
-//    socialFeed.selectGif(0);
-//    socialFeed.clickAddGif();
-//    socialFeed.selectGif(1);
-        socialFeed.clickOnImageIcon();
-        Thread.sleep(2000);
-        socialFeed.uploadFile();
-        Thread.sleep(10000);
+    Thread.sleep(4000);
+    socialFeed.clickOnImageIcon();
+    Thread.sleep(2000);
+    socialFeed.uploadFile();
+    Thread.sleep(10000);
 //    socialFeed.uploadFile("C:\\Users\\hp\\Pictures\\as.jpg");
-
-    Thread.sleep(5000);
 
 }
     @Test(priority = 1)
@@ -71,7 +53,31 @@ public class SocialTest1 extends BaseTest {
         socialFeed.selectGif(1);
         socialFeed.clickGiveShoutoutsbutton();
         Thread.sleep(10000);
+
     }
+
+    @Test
+    public void testGetShoutoutCards() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(5000);
+        List<WebElement> shoutoutCards = socialFeed.getAllShoutoutCards();
+        for (WebElement card : shoutoutCards) {
+            System.out.println(card.getText());
+        }
+    }
+    @Test
+    public void getfirstshoutoutcard() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(5000);
+        WebElement firstCard = socialFeed.getFirstShoutoutCard();
+        Assert.assertNotNull(firstCard, "First shoutout card should not be null");
+        System.out.println("First Shoutout Card Text: " + firstCard.getText());
+        Thread.sleep(3000);
+
+
+    }
+
+
     @Test
     public void invalidcharactercheck() throws InterruptedException {
         SocialFeedPage socialFeed= new SocialFeedPage(driver);
@@ -117,8 +123,6 @@ public class SocialTest1 extends BaseTest {
         socialFeed.clickOnAddPointsIcon();
         socialFeed.clickOnAddEmployee();
         socialFeed.selectNameFromDropdown("Tanishk Patidar");
-//        socialFeed.clickAddHastag();
-//        socialFeed.selectTagFromDropdown("#Humility");
         socialFeed.clickAddEmoji();
         socialFeed.selectEmoji("\uD83D\uDE1C");
         socialFeed.clickAddEmoji();
@@ -189,23 +193,6 @@ public class SocialTest1 extends BaseTest {
         socialFeed.writeComment("Good Job!");
         Thread.sleep(2000);
         socialFeed.clickSubmitComment();
-//        socialFeed.submitComment();
-
-        // Tag a user in the comment (adjust user name accordingly)
-//        socialFeed.tagUser("Anshul Uniyal");
-//        Thread.sleep(2000); // Optional, helps with timing
-
-//        socialFeed.addpointtocomment();
-//        Thread.sleep(4000);
-
-//        socialFeed.addinghastagtocomment();
-//        socialFeed.selectTagFromDropdown("#Humility");
-//        Thread.sleep(4000);
-
-
-        // Add an emoji to the comment (adjust emoji label accordingly)
-//        socialFeed.addingEmojiToComment("smile");
-//        Thread.sleep(2000); // Optional, helps with timing
 
         // Upload a file if needed (adjust file path accordingly)
 //        String filePath = "C:\\path\\to\\your\\image.jpg";
@@ -244,14 +231,14 @@ public class SocialTest1 extends BaseTest {
         socialFeed.shoutoutsdelete();
         Thread.sleep(4000);
     }
-//    @Test
-//    public void deleteshoutoutolderthansevenhours() throws InterruptedException {
-//        SocialFeedPage socialFeed= new SocialFeedPage(driver);
-//        Thread.sleep(5000);
-//        socialFeed.deleteShoutoutIfOlderThan7Hours("2 days ago", shoutoutDeleteButton);
-//
-//
-//    }
+    @Test
+    public void deleteshoutoutolderthansevenhours() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(5000);
+        socialFeed.deleteShoutoutsOlderThan7Hours();
+        Thread.sleep(4000);
+
+    }
     @Test
     public void scrollthroguhlist() throws InterruptedException {
         SocialFeedPage socialFeed= new SocialFeedPage(driver);
