@@ -36,7 +36,7 @@ public class SocialTest1 extends BaseTest {
 
         SocialFeedPage socialFeed= new SocialFeedPage(driver);
         Thread.sleep(5000);
-        socialFeed.clickOnAddPointsIcon();
+        socialFeed.givePoints("+1");
         socialFeed.clickOnAddEmployee();
         socialFeed.selectNameFromDropdown("Tanishk Patidar");
         socialFeed.clickAddHastag();
@@ -76,7 +76,6 @@ public class SocialTest1 extends BaseTest {
 
 
     }
-
 
     @Test
     public void invalidcharactercheck() throws InterruptedException {
@@ -215,15 +214,13 @@ public class SocialTest1 extends BaseTest {
         SocialFeedPage socialFeed= new SocialFeedPage(driver);
         Thread.sleep(4000);
         socialFeed.clickAddComment();
-        Thread.sleep(1000);
-        socialFeed.addpointtocomment();
-        Thread.sleep(4000);
-        socialFeed.addinghastagtocomment();
-        socialFeed.selectTagFromDropdown("#Humility");
-        Thread.sleep(4000);
+        Thread.sleep(2000);
+        socialFeed.writeComment("+1 Good Job!");
+        Thread.sleep(2000);
         socialFeed.clickSubmitComment();
-        Thread.sleep(4000);
+        Thread.sleep(3000);
     }
+
     @Test
     public void shoutoutdelete() throws InterruptedException {
         SocialFeedPage socialFeed= new SocialFeedPage(driver);

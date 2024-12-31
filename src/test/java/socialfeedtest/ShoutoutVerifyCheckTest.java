@@ -23,26 +23,23 @@ public class ShoutoutVerifyCheckTest extends BaseTest {
     @Test(priority = 1)
     public void shoutoutToSingleRecipient() throws InterruptedException {
         SocialFeedPage socialFeed = new SocialFeedPage(driver);
-
-        // Create the shoutout
         Thread.sleep(4000);
         socialFeed.clickOnAddPointsIcon();
         socialFeed.clickOnAddEmployee();
-        String recipientName = "Shri Yanshraj"; // Data for verification
+        String recipientName = "Shri Yanshraj";
         socialFeed.selectNameFromDropdown(recipientName);
         socialFeed.clickAddHastag();
-        String hashtag = "#Humility"; // Data for verification
+        String hashtag = "#Humility";
         socialFeed.selectTagFromDropdown(hashtag);
         socialFeed.clickAddEmoji();
-        String emoji1 = "\uD83D\uDE1C"; // Data for verification
+        String emoji1 = "\uD83D\uDE1C";
         socialFeed.selectEmoji(emoji1);
         socialFeed.clickAddEmoji();
-        String emoji2 = "\uD83D\uDE00"; // Data for verification
+        String emoji2 = "\uD83D\uDE00";
         socialFeed.selectEmoji(emoji2);
         socialFeed.clickGiveShoutoutsbutton();
-        Thread.sleep(4000); // Wait for the shoutout to appear in the listing
+        Thread.sleep(4000);
 
-        // Verify the shoutout in the listing
         boolean isShoutoutVisible = socialFeed.verifyShoutoutDetails(recipientName, "+10");
         Assert.assertTrue(isShoutoutVisible, "Shoutout is not visible in the listing for the recipient: " + recipientName);
     }
@@ -50,36 +47,33 @@ public class ShoutoutVerifyCheckTest extends BaseTest {
     @Test(priority = 2)
     public void shoutoutToMultipleRecipient() throws InterruptedException {
         SocialFeedPage socialFeed = new SocialFeedPage(driver);
-
-        // Create the shoutout
         Thread.sleep(4000);
-        socialFeed.clickOnAddPointsIcon();
+//        socialFeed.clickOnAddPointsIcon();
+        String point = "+1";
+        socialFeed.charactercheck(point);
         socialFeed.clickOnAddEmployee();
-        String recipient1 = "Tanishk Patidar"; // Data for verification
+        String recipient1 = "Tanishk Patidar";
         socialFeed.selectNameFromDropdown(recipient1);
+        Thread.sleep(1000);
         socialFeed.clickOnAddEmployee();
-        String recipient2 = "Anshul Uniyal"; // Data for verification
+        String recipient2 = "Anshul Uniyal";
         socialFeed.selectNameFromDropdown(recipient2);
         socialFeed.clickAddHastag();
-        String hashtag1 = "#Humility"; // Data for verification
+        String hashtag1 = "#Humility";
         socialFeed.selectTagFromDropdown(hashtag1);
         socialFeed.clickAddHastag();
-        String hashtag2 = "#Accountability"; // Data for verification
+        String hashtag2 = "#Accountability";
         socialFeed.selectTagFromDropdown(hashtag2);
         socialFeed.clickAddEmoji();
-        String emoji = "\uD83D\uDE1C"; // Data for verification
+        String emoji = "\uD83D\uDE1C";
         socialFeed.selectEmoji(emoji);
         socialFeed.clickAddGif();
         socialFeed.selectGif(0);
         socialFeed.clickGiveShoutoutsbutton();
-        Thread.sleep(2000); // Wait for the shoutout to appear in the listing
+        Thread.sleep(2000);
 
-        // Verify the shoutout in the listing for both recipients and points
-//        String expectedPoints = "+10"; // Example points for validation
-        boolean isShoutoutVisible = socialFeed.verifyShoutoutWithMultipleRecipientsAndPoints(recipient1, recipient2, "+10");
-        Assert.assertTrue(isShoutoutVisible, "Shoutout is not visible in the listing for recipients: " + recipient1 + " and " + recipient2 + " with points: " );
+        boolean isShoutoutVisible = socialFeed.verifyShoutoutWithMultipleRecipientsAndPoints(recipient1, recipient2, point);
+        Assert.assertTrue(isShoutoutVisible, "Shoutout is not visible in the listing for recipients: " + recipient1 + " and " + recipient2 + " with points:" +point);
     }
-
-
-
 }
+

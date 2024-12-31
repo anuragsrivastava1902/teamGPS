@@ -100,6 +100,7 @@
 package socialfeedtest;
 
 import basetest.BaseTest;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.homepage.HomePage;
@@ -111,6 +112,11 @@ public class ShoutoutActionsTest extends BaseTest {
     public void commonState() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
         homePage.clickOnSocialFeed();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.navigate().refresh(); // Refresh to reset the page state
     }
 
     @Test(priority = 1)
@@ -145,18 +151,16 @@ public class ShoutoutActionsTest extends BaseTest {
         Thread.sleep(3000);
     }
 
-    @Test(priority = 5)
-    public void pointsThroughCommentsInShoutout() throws InterruptedException {
-        SocialFeedPage socialFeed = new SocialFeedPage(driver);
+    @Test(priority =  5)
+    public void pointsthroughcommentsinshoutout() throws InterruptedException {
+        SocialFeedPage socialFeed= new SocialFeedPage(driver);
+        Thread.sleep(4000);
         socialFeed.clickAddComment();
-        Thread.sleep(1000);
-        socialFeed.addpointtocomment();
-        Thread.sleep(4000);
-        socialFeed.addinghastagtocomment();
-        socialFeed.selectTagFromDropdown("#Humility");
-        Thread.sleep(4000);
+        Thread.sleep(2000);
+        socialFeed.writeComment("+1 Good Job!");
+        Thread.sleep(2000);
         socialFeed.clickSubmitComment();
-        Thread.sleep(4000);
+        Thread.sleep(3000);
     }
 
 

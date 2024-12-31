@@ -1,6 +1,7 @@
 package socialfeedtest;
 
 import basetest.BaseTest;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.homepage.HomePage;
@@ -12,6 +13,11 @@ public class ShoutoutFilterTest extends BaseTest {
     public void commonState() throws InterruptedException {
         HomePage homePage = new HomePage(driver);
         homePage.clickOnSocialFeed();
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.navigate().refresh(); // Refresh to reset the page state
     }
 
     @Test

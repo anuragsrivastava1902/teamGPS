@@ -6,7 +6,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SocialFeedPage {
     WebDriver driver;
@@ -38,7 +40,7 @@ public class SocialFeedPage {
     By editShoutout = By.cssSelector("div[class='d-inline-block download-report-ui ng-star-inserted show dropdown'] img[alt='edit-icon']");
     By deleteDropdown = By.cssSelector(".dropdown-menu.show");
     By addComment = By.xpath("(//span[@class='d-none d-sm-inline-block'][normalize-space()='Comment'])[1]");
-    By addpointstocomment = By.cssSelector("div[ngbtooltip='Add more points']");
+    By addpointstocommenticon = By.cssSelector("div[ngbtooltip='Add more points']");
     By addhastagtocomment = By.cssSelector("div[ngbtooltip='Hashtag']");
     By addemojitocomment = By.xpath("(//div[@class='footer-reactions-col'])[6]");
     By socialFeedAction = By.cssSelector("button[class='btn btn-outline-primary']");
@@ -219,7 +221,9 @@ public class SocialFeedPage {
         }
     }
     public void Removereactiontoshoutut(){
-        wait.until(ExpectedConditions.elementToBeClickable(removereactiontoshoutut)).click();
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(removereactiontoshoutut));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click()", element);
+//        wait.until(ExpectedConditions.elementToBeClickable(removereactiontoshoutut)).click();
     }
 
 
@@ -264,9 +268,11 @@ public class SocialFeedPage {
         }
     }
 
-    public void addpointtocomment() {
-        wait.until(ExpectedConditions.elementToBeClickable(addpointstocomment)).click();
-        wait.until(ExpectedConditions.elementToBeClickable(specificOption)).click();
+    public void addpointtocomment() throws InterruptedException {
+        WebElement addpointstocomment = wait.until(ExpectedConditions.elementToBeClickable(addpointstocommenticon));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click()", addpointstocomment);
+       WebElement specific = wait.until(ExpectedConditions.elementToBeClickable(specificOption));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click()", specific);
     }
 
     public void addinghastagtocomment() {
@@ -570,6 +576,52 @@ public class SocialFeedPage {
             return shoutoutCard.isDisplayed();
         } catch (NoSuchElementException e) {
             return false; // Shoutout not found or points not displayed
+        }
+    }
+
+    public void addRecipients(List<String> recipients) throws InterruptedException {
+        for (String recipient : recipients) {
+            clickOnAddEmployee();
+            selectNameFromDropdown(recipient);
+//            logger.info("Added recipient: " + recipient);
+            Thread.sleep(1000); // Optional: Add delay if necessary for the UI to update
+        }
+    }
+
+    public void givePoints(String pointYouWantToGive) throws InterruptedException {
+
+        driver.findElement(addPointsIcon).click();
+
+        driver.findElement(By.xpath("//ul[contains(@class, 'dropdown-menu') and contains(@class, 'mention-menu')]//span[normalize-space()='+"+pointYouWantToGive+"']")).click();        //((JavascriptExecutor) driver).executeScript("arguments[0].click()", points);        System.out.println("points selected");        Thread.sleep(10000);
+    }
+
+    public void getRecipientNamesAndCount() {
+        // Get all recipient elements using the provided XPath
+        List<WebElement> recipientElements = driver.findElements(By.xpath(".//span[@class='ng-star-inserted']//a"));
+
+        // Create a map to count occurrences of each recipient
+        Map<String, Integer> recipientOccurrences = new HashMap<>();
+
+        // Loop through each recipient element
+        for (WebElement recipientElement : recipientElements) {
+            // Get the recipient name
+            String recipientName = recipientElement.getText().trim();
+
+            // If the recipient name is not empty
+            if (!recipientName.isEmpty()) {
+                // If the recipient name is already in the map, increment its count
+                if (recipientOccurrences.containsKey(recipientName)) {
+                    recipientOccurrences.put(recipientName, recipientOccurrences.get(recipientName) + 1);
+                } else {
+                    // If not, add it to the map with a count of 1
+                    recipientOccurrences.put(recipientName, 1);
+                }
+            }
+        }
+
+        // Print out the recipient names and their occurrence counts
+        for (Map.Entry<String, Integer> entry : recipientOccurrences.entrySet()) {
+            System.out.println(entry.getKey() + " has been recognized " + entry.getValue() + " time(s).");
         }
     }
 
