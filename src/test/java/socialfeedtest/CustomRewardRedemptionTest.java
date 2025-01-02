@@ -77,6 +77,4 @@ public class CustomRewardRedemptionTest extends BaseTest {
         CustomRewardRedemptionPage customRewardRedemptionPage = new CustomRewardRedemptionPage(driver);
         customRewardRedemptionPage.enterRewardNameAndSearch("Pickelball");
     }
-
-
 }
